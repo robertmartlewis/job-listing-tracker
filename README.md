@@ -2,7 +2,7 @@
 
 A Spring Boot application that automatically tracks junior Java job listings for Asturias, Spain — pulling from Tecnoempleo's RSS feed, storing them with deduplication, and providing a searchable/filterable dashboard.
 
-🚧 **Status: testing branch A.** Built as a learning project and CV centerpiece — see commit history for progress.
+🚧 **Status: in active development.** Built as a learning project and CV centerpiece — see commit history for progress.
 
 ## Planned tech stack
 
