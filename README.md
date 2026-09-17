@@ -24,4 +24,6 @@ A Spring Boot application that automatically tracks junior Java job listings for
 
 ## Setup
 
-_Coming soon — instructions for running locally will be added once the persistence layer is in place._
+**Prerequisites:** JDK 21, Maven, Docker, PostgreSQL
+
+_Run instructions coming once the persistence layer is in place._
