@@ -89,4 +89,42 @@ class JobListingRepositoryTest {
         assertThatThrownBy(() -> repository.save(jobListingDuplicate))
                 .isInstanceOf(DataIntegrityViolationException.class);
     }
+
+    @Test
+    void savingTwoListingsWithTheUniqueUrls() {
+
+        JobListing jobListing1 = new JobListing();
+        jobListing1.setTitle("jr dev 01");
+        jobListing1.setUrl("https://somewhere/01.com");
+        jobListing1.setSource(Source.INFOJOBS);
+        jobListing1.setCompany("Empresa01");
+        jobListing1.setDescription("x".repeat(5500));
+        jobListing1.setSalaryMin(1000);
+        jobListing1.setSalaryMax(1200);
+        jobListing1.setPostedDate(LocalDate.of(2026, 10, 3));
+        jobListing1.setFirstSeenDate(Instant.now());
+
+        JobListing jobListing2 = new JobListing();
+        jobListing2.setTitle("jr dev 02");
+        jobListing2.setUrl("https://somewhere/jrdev02.com");
+        jobListing2.setSource(Source.INFOJOBS);
+        jobListing2.setCompany("Empresa02");
+        jobListing2.setDescription("x".repeat(5500));
+        jobListing2.setSalaryMin(1200);
+        jobListing2.setSalaryMax(1400);
+        jobListing2.setPostedDate(LocalDate.of(2026, 10, 3));
+        jobListing2.setFirstSeenDate(Instant.now());
+
+        JobListing saved1 = repository.save(jobListing1);
+        JobListing saved2 = repository.save(jobListing2);
+        manager.flush();
+        manager.clear();
+
+        assertThat(saved1.getId()).isNotNull();
+        assertThat(saved2.getId()).isNotNull();
+        assertThat(saved1.getId()).isNotEqualTo(saved2.getId());
+
+        assertThat(repository.findById(saved1.getId())).isPresent();
+        assertThat(repository.findById(saved2.getId())).isPresent();
+    }
 }
