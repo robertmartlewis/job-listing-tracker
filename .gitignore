@@ -65,3 +65,4 @@ application-secrets.properties
 # JVM crash logs
 hs_err_pid*
 
+src/test/resources/feed*.xml
