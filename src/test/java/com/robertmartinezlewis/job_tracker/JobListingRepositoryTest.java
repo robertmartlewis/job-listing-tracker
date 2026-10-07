@@ -27,6 +27,7 @@ class JobListingRepositoryTest {
         JobListing jobListing = new JobListing();
         jobListing.setTitle("jr dev");
         jobListing.setUrl("https://somewhere/jrdev.com");
+        jobListing.setSource(Source.INFOJOBS);
 
         JobListing saved = repository.save(jobListing);
         manager.flush();
@@ -36,5 +37,7 @@ class JobListingRepositoryTest {
         assertThat(found).isPresent();
         assertThat(found.get().getTitle()).isEqualTo("jr dev");
         assertThat(found.get().getUrl()).isEqualTo("https://somewhere/jrdev.com");
+        assertThat(found.get().getSource()).isEqualTo(Source.INFOJOBS);
+        assertThat(found.get().getStatus()).isEqualTo(Status.NEW);
     }
 }
