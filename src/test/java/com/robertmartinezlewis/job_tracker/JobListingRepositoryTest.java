@@ -5,14 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
+import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -55,5 +55,38 @@ class JobListingRepositoryTest {
         assertThat(found.get().getSalaryMax()).isEqualTo(1200);
         assertThat(found.get().getPostedDate()).isEqualTo(LocalDate.of(2026, 10, 3));
         assertThat(found.get().getFirstSeenDate()).isCloseTo(seen, within(1, ChronoUnit.MILLIS));
+    }
+
+    @Test
+    void savingTwoListingsWithTheSameUrlIsRejected() {
+
+        JobListing jobListing = new JobListing();
+        jobListing.setTitle("jr dev");
+        jobListing.setUrl("https://somewhere/jrdev.com");
+        jobListing.setSource(Source.INFOJOBS);
+        jobListing.setCompany("Empresa01");
+        jobListing.setDescription("x".repeat(5500));
+        jobListing.setSalaryMin(1000);
+        jobListing.setSalaryMax(1200);
+        jobListing.setPostedDate(LocalDate.of(2026, 10, 3));
+        Instant seen = Instant.now();
+        jobListing.setFirstSeenDate(seen);
+
+        JobListing jobListingDuplicate = new JobListing();
+        jobListingDuplicate.setTitle("jr dev 01");
+        jobListingDuplicate.setUrl("https://somewhere/jrdev.com");
+        jobListingDuplicate.setSource(Source.INFOJOBS);
+        jobListingDuplicate.setCompany("Empresa02");
+        jobListingDuplicate.setDescription("x".repeat(5500));
+        jobListingDuplicate.setSalaryMin(1200);
+        jobListingDuplicate.setSalaryMax(1400);
+        jobListingDuplicate.setPostedDate(LocalDate.of(2026, 10, 3));
+        Instant seenDup = Instant.now();
+        jobListingDuplicate.setFirstSeenDate(seenDup);
+
+        repository.save(jobListing);
+
+        assertThatThrownBy(() -> repository.save(jobListingDuplicate))
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 }
