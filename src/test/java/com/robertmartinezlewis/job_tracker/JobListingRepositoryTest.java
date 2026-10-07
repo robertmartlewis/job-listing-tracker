@@ -32,7 +32,7 @@ class JobListingRepositoryTest {
         jobListing.setUrl("https://somewhere/jrdev.com");
         jobListing.setSource(Source.INFOJOBS);
         jobListing.setCompany("Empresa01");
-        jobListing.setDescription("descripcion");
+        jobListing.setDescription("x".repeat(5500));
         jobListing.setSalaryMin(1000);
         jobListing.setSalaryMax(1200);
         jobListing.setPostedDate(LocalDate.of(2026, 10, 3));
@@ -50,7 +50,7 @@ class JobListingRepositoryTest {
         assertThat(found.get().getSource()).isEqualTo(Source.INFOJOBS);
         assertThat(found.get().getStatus()).isEqualTo(Status.NEW);
         assertThat(found.get().getCompany()).isEqualTo("Empresa01");
-        assertThat(found.get().getDescription()).isEqualTo("descripcion");
+        assertThat(found.get().getDescription()).isEqualTo("x".repeat(5500));
         assertThat(found.get().getSalaryMin()).isEqualTo(1000);
         assertThat(found.get().getSalaryMax()).isEqualTo(1200);
         assertThat(found.get().getPostedDate()).isEqualTo(LocalDate.of(2026, 10, 3));
