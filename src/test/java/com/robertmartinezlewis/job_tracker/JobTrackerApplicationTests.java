@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class JobTrackerApplicationTests {
 
+
+
 	@Test
 	void contextLoads() {
 	}
