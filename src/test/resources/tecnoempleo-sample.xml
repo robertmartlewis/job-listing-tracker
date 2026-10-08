@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title> Tecnoempleo.com - Ofertas de trabajo y empleo  (tecnologías: java)</title>
+        <description>Canal RSS de ofertas de empleo de Tecnoempleo.com  (tecnologías: java)</description>
+        <language>es</language>
+        <pubDate>Wed, 07 Oct 2026 12:07:53 +0000</pubDate>
+        <link>https://www.tecnoempleo.com</link>
+        <atom:link href="https://www.tecnoempleo.com/alertas-empleo-rss.php?te=java" rel="self" type="application/rss+xml" />
+
+        <!--
+          ITEM A
+          salario: rango (30000-45000)     -> salaryMin 30000 / salaryMax 45000
+          provincia: "100% En remoto"      -> modalidad remota, sin provincia
+          experiencia: "3 años"            -> experienceMin 3 / experienceMax null
+          trampa: "Tecnologías:" repetida dentro de la descripción
+        -->
+        <item>
+            <title><![CDATA[Arquitecto/a Soluciones Java (EJEMPLO A)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-a/springboot/rf-00000000000000000001]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-a/springboot/rf-00000000000000000001]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo A                <br /><b>Provincia:</b>&nbsp;100% En remoto                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Buscamos arquitecto con experiencia en entornos API.
+
+Requisitos:
+
+- Tecnologías: Experto en soluciones técnicas. Spring boot, Kafka.
+- Idiomas: Castellano, Ingles B1
+
+100% de teletrabajo.            <br /><b>Tecnologías:</b>&nbsp;Java, SpringBoot, Kafka            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;30000 &euro; - 45000 &euro;  Bruto/año            <br /><b>Experiencia:</b>&nbsp;3 años            <br /><b>Funciones:</b>&nbsp;Arquitecto TIC            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-a/springboot/rf-00000000000000000001<br />
+        ]]></description>
+            <pubDate>Fri, 25 Sep 2026 13:13:16 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM B
+          salario: "Sin especificar"       -> salaryMin null / salaryMax null
+          provincia: "hibrido"             -> modalidad híbrida, sin provincia
+          experiencia: "3-5 años"          -> experienceMin 3 / experienceMax 5
+          defensivo: espacios alrededor del <link> y del <guid> (hay que hacer trim)
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java Backend (EJEMPLO B)]]></title>
+            <link><![CDATA[  https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002  ]]></link>
+            <guid><![CDATA[  https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002  ]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo B                <br /><b>Provincia:</b>&nbsp;hibrido                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Incorpórate a un equipo de desarrollo backend...            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;3-5 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002<br />
+        ]]></description>
+            <pubDate>Mon, 28 Sep 2026 09:00:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM C
+          salario: "0 € - 45000 €"         -> salaryMin null (0 = desconocido) / salaryMax 45000
+          provincia: "presencial"          -> modalidad presencial, sin provincia
+          experiencia: "Más de 5 años"     -> experienceMin 5 / experienceMax null
+          incluye "Formación mínima" (solo lo traen algunas ofertas)
+        -->
+        <item>
+            <title><![CDATA[Senior Java Developer (EJEMPLO C)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-c/java/rf-00000000000000000003]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-c/java/rf-00000000000000000003]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo C                <br /><b>Provincia:</b>&nbsp;presencial                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Proyecto de larga duración en el sector bancario...            <br /><b>Tecnologías:</b>&nbsp;Java, Hibernate, Oracle            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;0 &euro; - 45000 &euro;  Bruto/año            <br /><b>Experiencia:</b>&nbsp;Más de 5 años            <br /><b>Funciones:</b>&nbsp;Programador            <br /><b>Formación mínima:</b>&nbsp;FP2/Grado Superior            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-c/java/rf-00000000000000000003<br />
+        ]]></description>
+            <pubDate>Tue, 29 Sep 2026 10:30:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM D
+          salario: rango (30000-33000)     -> salaryMin 30000 / salaryMax 33000
+          provincia: "Asturias"            -> modalidad null, provincia Asturias
+          población: "Oviedo"              -> (campo Población con valor)
+          experiencia: "No requerida"      -> experienceMin 0 / experienceMax null
+        -->
+        <item>
+            <title><![CDATA[Programador/a Java Junior (EJEMPLO D)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-d/java/rf-00000000000000000004]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-d/java/rf-00000000000000000004]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo D                <br /><b>Provincia:</b>&nbsp;Asturias                <br /><b>Población:</b>&nbsp;Oviedo
+                            <br /><b>Descripción:</b>&nbsp;Buscamos perfil junior con ganas de aprender...            <br /><b>Tecnologías:</b>&nbsp;Java, SQL            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;30000 &euro; - 33000 &euro;  Bruto/año            <br /><b>Experiencia:</b>&nbsp;No requerida            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-d/java/rf-00000000000000000004<br />
+        ]]></description>
+            <pubDate>Wed, 30 Sep 2026 08:15:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
