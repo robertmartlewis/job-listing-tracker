@@ -12,9 +12,9 @@ public class DescriptionParser {
         Document document = Jsoup.parse(html);
 
         String company = valueOf(document, "Empresa");
+        String technologies = valueOf(document, "Tecnologías");
 
-
-        return new DescriptionValuesRaw(company, null, null, null, null, null, null, null, null, null);
+        return new DescriptionValuesRaw(company, null, null, null, technologies, null, null, null, null, null);
     }
 
     private static String valueOf(Document document, String label) {

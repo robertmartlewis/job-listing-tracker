@@ -23,4 +23,18 @@ public class DescriptionParserTest {
 
         assertThat(result.company()).isNull();
     }
+
+    @Test
+    void ignoresTechnologiesLabelInsideFreeText() {
+        String html = """
+                <b>Descripción:</b>&nbsp;Buscamos arquitecto.
+                - Tecnologías: Experto en soluciones técnicas. Spring boot, Kafka.
+                <br /><b>Tecnologías:</b>&nbsp;Java, SpringBoot, Kafka              <br />
+                <b>Tipo de Contrato:</b>&nbsp;Indefinido              <br />
+                """;
+
+        DescriptionValuesRaw result = DescriptionParser.parse(html);
+
+        assertThat(result.technologies()).isEqualTo("Java, SpringBoot, Kafka");
+    }
 }
