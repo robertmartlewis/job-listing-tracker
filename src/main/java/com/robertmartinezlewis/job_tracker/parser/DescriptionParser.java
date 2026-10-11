@@ -16,7 +16,10 @@ public class DescriptionParser {
             if (label.text().equals("Empresa:")) {
                 Node valueNode = label.nextSibling();
                 if (valueNode instanceof TextNode textNode) {
-                    company = textNode.text().strip();
+                    String text = textNode.text();
+                    if (!text.isBlank()) {
+                        company = text.strip();
+                    }
                 }
             }
         }
