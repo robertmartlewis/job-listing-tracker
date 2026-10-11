@@ -11,19 +11,24 @@ public class DescriptionParser {
     public static DescriptionValuesRaw parse(String html){
         Document document = Jsoup.parse(html);
 
-        String company = null;
-        for (Element label : document.select("b")) {
-            if (label.text().equals("Empresa:")) {
-                Node valueNode = label.nextSibling();
+        String company = valueOf(document, "Empresa");
+
+
+        return new DescriptionValuesRaw(company, null, null, null, null, null, null, null, null, null);
+    }
+
+    private static String valueOf(Document document, String label) {
+        for (Element bold : document.select("b")) {
+            if (bold.text().equals(label+":")) {
+                Node valueNode = bold.nextSibling();
                 if (valueNode instanceof TextNode textNode) {
                     String text = textNode.text();
                     if (!text.isBlank()) {
-                        company = text.strip();
+                        return text.strip();
                     }
                 }
             }
         }
-
-        return new DescriptionValuesRaw(company, null, null, null, null, null, null, null, null, null);
+        return null;
     }
 }
