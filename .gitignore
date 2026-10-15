@@ -66,3 +66,5 @@ application-secrets.properties
 hs_err_pid*
 
 src/test/resources/feed*.xml
+
+.jqwik-database
