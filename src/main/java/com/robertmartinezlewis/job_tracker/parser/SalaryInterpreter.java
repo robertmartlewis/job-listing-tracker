@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public final class SalaryInterpreter {
 
     private static final Pattern SALARY_RANGE =
-            Pattern.compile("(\\d+)\\s*€\\s*-\\s*(\\d+)\\s*€", Pattern.UNICODE_CHARACTER_CLASS);
+            Pattern.compile("(-?\\d+)\\s*€\\s*-\\s*(-?\\d+)\\s*€", Pattern.UNICODE_CHARACTER_CLASS);
 
     private SalaryInterpreter() {
     }
@@ -37,7 +37,7 @@ public final class SalaryInterpreter {
         } catch (NumberFormatException e){
             return null;
         }
-        if (value.equals(0)) {
+        if (value <= 0) {
             return null;
         }
         return value;
