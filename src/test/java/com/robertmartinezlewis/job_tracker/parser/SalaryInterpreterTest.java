@@ -1,9 +1,5 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
-import net.jqwik.api.Arbitraries;
-import net.jqwik.api.Arbitrary;
-import net.jqwik.api.Combinators;
-import net.jqwik.api.Provide;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,8 +24,12 @@ public class SalaryInterpreterTest {
                 Arguments.of("30000 € - 45000 € Bruto/año", 30000, 45000),
                 Arguments.of("Sin especificar", null, null),
                 Arguments.of("0 € - 45000 € Bruto/año", null, 45000),
-                Arguments.of("50000 € - 30000 € Bruto/año", 50000, 30000),
+                Arguments.of("50000 € - 30000 € Bruto/año", 30000, 50000),
                 Arguments.of("45000 € - 0 € Bruto/año", 45000, null),
+                Arguments.of("30000 € - 999999999999 € Bruto/año", 30000, null),
+                Arguments.of("999999999999 € - 30000 € Bruto/año", null, 30000),
+                Arguments.of("999999999999 € - 999999999999 € Bruto/año", null, null),
+                Arguments.of("000000000005 € - 6 € Bruto/año", 5, 6),
                 Arguments.of(null, null, null)
         );
     }
