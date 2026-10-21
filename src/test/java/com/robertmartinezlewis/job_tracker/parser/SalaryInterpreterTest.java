@@ -30,6 +30,13 @@ public class SalaryInterpreterTest {
                 Arguments.of("999999999999 € - 30000 € Bruto/año", null, 30000),
                 Arguments.of("999999999999 € - 999999999999 € Bruto/año", null, null),
                 Arguments.of("000000000005 € - 6 € Bruto/año", 5, 6),
+                Arguments.of("-45 € - 50 € Bruto/año", null, 50),
+                Arguments.of("45 € - -50 € Bruto/año", 45, null),
+                Arguments.of("-45 € - -50 € Bruto/año", null, null),
+                Arguments.of("-45 € - 0 € Bruto/año", null, null),
+                Arguments.of("50 € - -45 € Bruto/año", 50, null),
+                Arguments.of("50 € -45 € Bruto/año", 45, 50),
+                Arguments.of("-5 € - -3 € Bruto/año", null, null),
                 Arguments.of(null, null, null)
         );
     }
