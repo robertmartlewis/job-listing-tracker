@@ -25,6 +25,13 @@ public final class SalaryInterpreter {
             if(max.equals(0)){
                 max = null;
             }
+            if(min != null && max != null){
+                Integer tmpMin = max;
+                if(min > max){
+                    max = min;
+                    min = tmpMin;
+                }
+            }
             return new InterpretedSalary(min, max);
         }
         return new InterpretedSalary(null, null);
