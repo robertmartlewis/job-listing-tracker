@@ -26,6 +26,9 @@ public class ExperienceInterpreterTest {
                 Arguments.of("3 años", 3, null),
                 Arguments.of("3-5 años", 3, 5),
                 Arguments.of("Más de 5 años", 5, null),
+                Arguments.of("Menos de 1 año", 0, 1),
+                Arguments.of("Menos de 3 años", 0, 3),
+                Arguments.of("menos de 3 años", 0, 3),
                 Arguments.of(null, null, null)
         );
     }
