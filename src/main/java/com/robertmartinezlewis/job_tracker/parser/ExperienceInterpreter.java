@@ -30,7 +30,7 @@ public final class ExperienceInterpreter {
 
         Matcher rangeMatcher = EXPERIENCE_RANGE.matcher(experience);
         if(rangeMatcher.find()) {
-            Integer min = Integer.valueOf(rangeMatcher.group(1));
+            Integer min = parseInteger(String.valueOf(rangeMatcher.group(1)));
             Integer max = null;
             if(rangeMatcher.group(2) != null){
                 max = Integer.valueOf(rangeMatcher.group(2));
@@ -41,4 +41,16 @@ public final class ExperienceInterpreter {
         return new InterpretedExperience(null, null);
     }
 
+    private static Integer parseInteger(String experience){
+        Integer value;
+        try {
+            value = Integer.valueOf(experience);
+        } catch (NumberFormatException e){
+            return null;
+        }
+        if (value < 0) {
+            return null;
+        }
+        return value;
+    }
 }
