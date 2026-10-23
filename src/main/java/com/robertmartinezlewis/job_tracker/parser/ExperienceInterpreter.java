@@ -24,21 +24,37 @@ public final class ExperienceInterpreter {
 
         Matcher lessThanMatcher =  EXPERIENCE_LESS_THAN.matcher(experience);
         if(lessThanMatcher.find()){
-            Integer max = Integer.valueOf(lessThanMatcher.group(1));
+            Integer max = parseInteger(lessThanMatcher.group(1));
             return new InterpretedExperience(0, max);
         }
 
         Matcher rangeMatcher = EXPERIENCE_RANGE.matcher(experience);
         if(rangeMatcher.find()) {
-            Integer min = Integer.valueOf(rangeMatcher.group(1));
+            Integer min = parseInteger(rangeMatcher.group(1));
             Integer max = null;
             if(rangeMatcher.group(2) != null){
-                max = Integer.valueOf(rangeMatcher.group(2));
+                max = parseInteger(rangeMatcher.group(2));
             }
+
+            if(min != null && max != null && min > max){
+                Integer tmp =  min;
+                min = max;
+                max = tmp;
+            }
+
             return new InterpretedExperience(min, max);
         }
 
         return new InterpretedExperience(null, null);
     }
 
+    private static Integer parseInteger(String digits){
+        Integer value;
+        try {
+            value = Integer.valueOf(digits);
+        } catch (NumberFormatException e){
+            return null;
+        }
+        return value;
+    }
 }
