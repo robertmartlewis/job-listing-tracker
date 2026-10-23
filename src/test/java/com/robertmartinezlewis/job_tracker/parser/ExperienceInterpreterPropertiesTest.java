@@ -16,4 +16,11 @@ public class ExperienceInterpreterPropertiesTest {
         InterpretedExperience result = ExperienceInterpreter.interpretExperience(digits + " año");
         assertNotNull(result);
     }
+
+    @Property
+    void pluralYearNeverThorwsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
+        InterpretedExperience result = ExperienceInterpreter.interpretExperience(digits + " años");
+        assertNotNull(result);
+    }
+
 }
