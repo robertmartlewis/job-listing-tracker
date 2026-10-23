@@ -31,4 +31,10 @@ public class ExperienceInterpreterPropertiesTest {
         assertNotNull(result);
     }
 
+    @Property
+    void experienceLessThanNeverThrowsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
+        InterpretedExperience result = ExperienceInterpreter.interpretExperience("Menos de " + digits + " años");
+        assertNotNull(result);
+    }
+
 }

@@ -24,7 +24,7 @@ public final class ExperienceInterpreter {
 
         Matcher lessThanMatcher =  EXPERIENCE_LESS_THAN.matcher(experience);
         if(lessThanMatcher.find()){
-            Integer max = Integer.valueOf(lessThanMatcher.group(1));
+            Integer max = parseInteger(lessThanMatcher.group(1));
             return new InterpretedExperience(0, max);
         }
 
