@@ -15,13 +15,13 @@ public class ExperienceInterpreterPropertiesTest {
     }
 
     @Property
-    void singularYearNeverThorwsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
+    void singularYearNeverThrowsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
         InterpretedExperience result = ExperienceInterpreter.interpretExperience(digits + " año");
         assertNotNull(result);
     }
 
     @Property
-    void pluralYearNeverThorwsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
+    void pluralYearNeverThrowsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
         InterpretedExperience result = ExperienceInterpreter.interpretExperience(digits + " años");
         assertNotNull(result);
     }

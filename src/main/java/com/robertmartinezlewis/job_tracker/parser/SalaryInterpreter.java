@@ -30,10 +30,10 @@ public final class SalaryInterpreter {
         return new InterpretedSalary(null, null);
     }
 
-    private static Integer parseBound(String digits) {
+    private static Integer parseBound(String rawNumber) {
         Integer value;
         try {
-            value = Integer.valueOf(digits);
+            value = Integer.valueOf(rawNumber);
         } catch (NumberFormatException e){
             return null;
         }

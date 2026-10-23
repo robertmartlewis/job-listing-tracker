@@ -48,14 +48,11 @@ public final class ExperienceInterpreter {
         return new InterpretedExperience(null, null);
     }
 
-    private static Integer parseInteger(String experience){
+    private static Integer parseInteger(String digits){
         Integer value;
         try {
-            value = Integer.valueOf(experience);
+            value = Integer.valueOf(digits);
         } catch (NumberFormatException e){
-            return null;
-        }
-        if (value < 0) {
             return null;
         }
         return value;
