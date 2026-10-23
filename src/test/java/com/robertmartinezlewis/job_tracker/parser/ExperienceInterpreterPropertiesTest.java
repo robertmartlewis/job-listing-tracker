@@ -1,8 +1,10 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
 import net.jqwik.api.*;
+import net.jqwik.api.constraints.IntRange;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExperienceInterpreterPropertiesTest {
 
@@ -35,6 +37,16 @@ public class ExperienceInterpreterPropertiesTest {
     void experienceLessThanNeverThrowsForHugeNumbers(@ForAll("oversizedExperience") String digits) {
         InterpretedExperience result = ExperienceInterpreter.interpretExperience("Menos de " + digits + " años");
         assertNotNull(result);
+    }
+
+    @Property
+    void experienceRangeMinIsNotGreaterThanMax(
+            @ForAll @IntRange(min = 0, max = 100) int first,
+            @ForAll @IntRange(min = 0, max = 100) int second) {
+        InterpretedExperience result = ExperienceInterpreter.interpretExperience(first + "-" + second + " años");
+        Assume.that(result.min() != null && result.max() != null);
+        assertTrue(result.min() <= result.max(), "The experience is: "
+                +  result.min() + "años - " + result.max() + "años");
     }
 
 }

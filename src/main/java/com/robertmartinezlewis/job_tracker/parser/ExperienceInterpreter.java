@@ -35,11 +35,13 @@ public final class ExperienceInterpreter {
             if(rangeMatcher.group(2) != null){
                 max = parseInteger(rangeMatcher.group(2));
             }
+
             if(min != null && max != null && min > max){
                 Integer tmp =  min;
                 min = max;
                 max = tmp;
             }
+
             return new InterpretedExperience(min, max);
         }
 
