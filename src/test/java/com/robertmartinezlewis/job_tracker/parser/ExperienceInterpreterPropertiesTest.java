@@ -23,4 +23,12 @@ public class ExperienceInterpreterPropertiesTest {
         assertNotNull(result);
     }
 
+    @Property
+    void yearRangeNeverThrowsForHugeNumbers(
+            @ForAll("oversizedExperience") String first,
+            @ForAll("oversizedExperience") String second) {
+        InterpretedExperience result = ExperienceInterpreter.interpretExperience(first + "-" + second + " años");
+        assertNotNull(result);
+    }
+
 }
