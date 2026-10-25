@@ -18,9 +18,14 @@ public final class RssFeedParser {
         SyndFeed input = new SyndFeedInput().build(reader);
 
 
-        return input.getEntries().stream().map(syndEntry -> new ParsedListing(
-                RfIdInterpreter.interpretRfId(syndEntry.getLink().strip()),
-                syndEntry.getLink().strip(),
+        return input.getEntries().stream().map(RssFeedParser::toParsedListing).toList();
+    }
+
+    private static ParsedListing toParsedListing(SyndEntry entry) {
+        String link = entry.getLink().strip();
+        return new ParsedListing(
+                RfIdInterpreter.interpretRfId(link),
+                link,
                 null,
                 null,
                 null,
@@ -34,6 +39,6 @@ public final class RssFeedParser {
                 null,
                 null,
                 null
-                )).toList();
+        );
     }
 }
