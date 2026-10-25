@@ -19,7 +19,7 @@ public final class RssFeedParser {
 
 
         return input.getEntries().stream().map(syndEntry -> new ParsedListing(
-                null,
+                RfIdInterpreter.interpretRfId(syndEntry.getLink().strip()),
                 syndEntry.getLink().strip(),
                 null,
                 null,
