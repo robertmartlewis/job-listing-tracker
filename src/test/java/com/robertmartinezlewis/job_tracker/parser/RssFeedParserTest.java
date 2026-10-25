@@ -53,6 +53,13 @@ public class RssFeedParserTest {
                 parsedListings.get(1).rfId());
     }
 
+    @Test
+    void extractTitleFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("Arquitecto/a Soluciones Java (EJEMPLO A)", parsedListings.get(0).title());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
