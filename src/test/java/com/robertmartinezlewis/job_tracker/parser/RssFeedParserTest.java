@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RssFeedParserTest {
 
@@ -18,6 +19,14 @@ public class RssFeedParserTest {
         String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
         List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
         assertEquals(4, parsedListings.size());
+    }
+
+    @Test
+    void extractsUrlFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("https://www.tecnoempleo.com/ejemplo-a/springboot/rf-00000000000000000001",
+                parsedListings.get(0).url());
     }
 
     String readClasspathResourceAsText(String fileName) {
@@ -30,7 +39,5 @@ public class RssFeedParserTest {
         } catch (IOException e) {
             throw new RuntimeException("Error reading " + fileName, e);
         }
-
-
     }
 }
