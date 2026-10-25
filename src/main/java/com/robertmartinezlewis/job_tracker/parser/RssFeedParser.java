@@ -1,5 +1,6 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
+import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
@@ -18,21 +19,21 @@ public final class RssFeedParser {
 
 
         return input.getEntries().stream().map(syndEntry -> new ParsedListing(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
+                null,
+                syndEntry.getLink(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
                 )).toList();
     }
 }
