@@ -30,7 +30,7 @@ public class RssFeedParserTest {
     }
 
     @Test
-    void extractsUrlFromSecondItem() throws FeedException {
+    void extractsUrlWithoutSurroundingSpaces() throws FeedException {
         String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
         List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
         assertEquals("https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002",
