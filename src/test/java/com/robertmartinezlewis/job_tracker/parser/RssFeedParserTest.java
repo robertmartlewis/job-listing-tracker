@@ -29,6 +29,14 @@ public class RssFeedParserTest {
                 parsedListings.get(0).url());
     }
 
+    @Test
+    void extractsUrlFromSecondItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002",
+                parsedListings.get(1).url());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
