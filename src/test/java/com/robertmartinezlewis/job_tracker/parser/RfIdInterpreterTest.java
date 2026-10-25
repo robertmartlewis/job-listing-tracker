@@ -33,6 +33,9 @@ public class RfIdInterpreterTest {
                         null),
                 Arguments.of(
                         "https://www.tecnoempleo.com/ejemplo-a/springboot/rf-100a0b04050008000001a",
+                        null),
+                Arguments.of(
+                        "https://www.tecnoempleo.com/ejemplo-a/springboot/rf-100A0B04050008000001",
                         null)
         );
     }
