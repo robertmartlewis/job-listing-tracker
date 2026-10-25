@@ -3,10 +3,7 @@ package com.robertmartinezlewis.job_tracker.parser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
-
-import javax.print.Doc;
 
 public class DescriptionParser {
 
