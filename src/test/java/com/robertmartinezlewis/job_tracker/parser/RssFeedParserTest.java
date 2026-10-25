@@ -37,6 +37,22 @@ public class RssFeedParserTest {
                 parsedListings.get(1).url());
     }
 
+    @Test
+    void extractsRfIdFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("rf-00000000000000000001",
+                parsedListings.get(0).rfId());
+    }
+
+    @Test
+    void extractsRfIdFromLinkWithSurroundingSpaces() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("rf-00000000000000000002",
+                parsedListings.get(1).rfId());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
