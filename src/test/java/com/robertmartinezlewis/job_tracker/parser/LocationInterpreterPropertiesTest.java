@@ -16,8 +16,22 @@ public class LocationInterpreterPropertiesTest {
     }
 
     @Property(generation = GenerationMode.EXHAUSTIVE)
-    void testLocationInterpreterProperties (@ForAll("provinces") String province){
+    void everyCanonicalProvinceIsRecognizedAsItself (@ForAll("provinces") String province){
         InterpretedLocation result = LocationInterpreter.interpretLocation(province);
+        assertNull(result.modality());
+        assertEquals(province, result.province());
+    }
+
+    @Property(generation = GenerationMode.EXHAUSTIVE)
+    void provinceIsRecognizedInUpperCase (@ForAll("provinces") String province){
+        InterpretedLocation result = LocationInterpreter.interpretLocation(province.toUpperCase());
+        assertNull(result.modality());
+        assertEquals(province, result.province());
+    }
+
+    @Property(generation = GenerationMode.EXHAUSTIVE)
+    void provinceIsRecognizedInLowerCase (@ForAll("provinces") String province){
+        InterpretedLocation result = LocationInterpreter.interpretLocation(province.toLowerCase());
         assertNull(result.modality());
         assertEquals(province, result.province());
     }
