@@ -171,6 +171,45 @@ public class RssFeedParserTest {
         assertEquals(45000, parsedListings.get(2).salaryMax());
     }
 
+    @Test
+    void extractsExperienceTextFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("3 años", parsedListings.get(0).experienceText());
+    }
+
+    @Test
+    void extractsExperienceFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(3, parsedListings.get(0).experienceMin());
+        assertNull(parsedListings.get(0).experienceMax());
+    }
+
+    @Test
+    void extractsExperienceFromSecondItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(3, parsedListings.get(1).experienceMin());
+        assertEquals(5, parsedListings.get(1).experienceMax());
+    }
+
+    @Test
+    void extractsExperienceFromThirdItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(5, parsedListings.get(2).experienceMin());
+        assertNull(parsedListings.get(2).experienceMax());
+    }
+
+    @Test
+    void extractsExperienceFromFourthItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(0, parsedListings.get(3).experienceMin());
+        assertNull(parsedListings.get(3).experienceMax());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
