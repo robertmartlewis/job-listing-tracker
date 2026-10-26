@@ -30,7 +30,7 @@ public final class RssFeedParser {
                 link,
                 entry.getTitle().strip(),
                 descriptionValuesRaw.company(),
-                null,
+                descriptionValuesRaw.description(),
                 entry.getPublishedDate().toInstant(),
                 null,
                 null,
