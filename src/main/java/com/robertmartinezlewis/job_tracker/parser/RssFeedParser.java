@@ -26,7 +26,9 @@ public final class RssFeedParser {
     private static ParsedListing toParsedListing(SyndEntry entry) {
         String link = entry.getLink().strip();
         DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
-        InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(descriptionValuesRaw.province());
+        InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(
+                descriptionValuesRaw.province());
+        InterpretedSalary interpretedSalary = SalaryInterpreter.interpretSalary(descriptionValuesRaw.salary());
         return new ParsedListing(
                 RfIdInterpreter.interpretRfId(link),
                 link,
@@ -37,9 +39,9 @@ public final class RssFeedParser {
                 interpretedLocation.province(),
                 interpretedLocation.modality(),
                 descriptionValuesRaw.technologies(),
-                null,
-                null,
-                null,
+                descriptionValuesRaw.salary(),
+                interpretedSalary.min(),
+                interpretedSalary.max(),
                 null,
                 null,
                 null
