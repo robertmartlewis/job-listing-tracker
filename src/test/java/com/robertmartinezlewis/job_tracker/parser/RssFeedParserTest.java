@@ -1,5 +1,6 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
+import com.robertmartinezlewis.job_tracker.Modality;
 import com.rometools.rome.io.FeedException;
 import org.junit.jupiter.api.Test;
 
@@ -96,6 +97,20 @@ public class RssFeedParserTest {
                 - Idiomas: Castellano, Ingles B1
                 
                 100% de teletrabajo.""", parsedListings.get(0).description());
+    }
+
+    @Test
+    void extractsModalityFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(Modality.REMOTE, parsedListings.get(0).modality());
+    }
+
+    @Test
+    void extractsProvinceFromFourthItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("Asturias", parsedListings.get(3).province());
     }
 
     String readClasspathResourceAsText(String fileName) {
