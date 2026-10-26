@@ -83,6 +83,21 @@ public class RssFeedParserTest {
         assertEquals("Empresa Ejemplo A", parsedListings.get(0).company());
     }
 
+    @Test
+    void extractsDescriptionFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("""
+                Buscamos arquitecto con experiencia en entornos API.
+                
+                Requisitos:
+                
+                - Tecnologías: Experto en soluciones técnicas. Spring boot, Kafka.
+                - Idiomas: Castellano, Ingles B1
+                
+                100% de teletrabajo.""", parsedListings.get(0).description());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
