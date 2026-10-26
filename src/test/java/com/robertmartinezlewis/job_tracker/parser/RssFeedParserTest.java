@@ -76,6 +76,13 @@ public class RssFeedParserTest {
         assertEquals(Instant.parse("2026-09-25T13:13:16Z"), parsedListings.get(0).publishedAt());
     }
 
+    @Test
+    void extractsCompanyNameFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("Empresa Ejemplo A", parsedListings.get(0).company());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
