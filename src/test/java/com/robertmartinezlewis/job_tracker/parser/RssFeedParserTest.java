@@ -60,6 +60,13 @@ public class RssFeedParserTest {
         assertEquals("Arquitecto/a Soluciones Java (EJEMPLO A)", parsedListings.get(0).title());
     }
 
+    @Test
+    void extractsTitleWithSurroundingSpaces() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("Desarrollador/a Java Backend (EJEMPLO B)", parsedListings.get(1).title());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {

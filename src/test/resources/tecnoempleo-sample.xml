@@ -40,7 +40,7 @@ Requisitos:
           defensivo: espacios alrededor del <link> y del <guid> (hay que hacer trim)
         -->
         <item>
-            <title><![CDATA[Desarrollador/a Java Backend (EJEMPLO B)]]></title>
+            <title><![CDATA[    Desarrollador/a Java Backend (EJEMPLO B)    ]]></title>
             <link><![CDATA[  https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002  ]]></link>
             <guid><![CDATA[  https://www.tecnoempleo.com/ejemplo-b/java/rf-00000000000000000002  ]]></guid>
             <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo B                <br /><b>Provincia:</b>&nbsp;hibrido                <br /><b>Población:</b>&nbsp;
