@@ -29,7 +29,7 @@ public final class RssFeedParser {
                 entry.getTitle().strip(),
                 null,
                 null,
-                null,
+                entry.getPublishedDate().toInstant(),
                 null,
                 null,
                 null,
