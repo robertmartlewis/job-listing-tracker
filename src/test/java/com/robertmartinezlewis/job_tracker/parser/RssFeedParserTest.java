@@ -140,6 +140,37 @@ public class RssFeedParserTest {
         assertEquals("Java, Spring", parsedListings.get(1).technologies());
     }
 
+    @Test
+    void extractsSalaryTextFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("30000 € - 45000 € Bruto/año", parsedListings.get(0).salaryText());
+    }
+
+    @Test
+    void extractsSalaryFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(30000, parsedListings.get(0).salaryMin());
+        assertEquals(45000, parsedListings.get(0).salaryMax());
+    }
+
+    @Test
+    void extractsSalaryFromSecondItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertNull(parsedListings.get(1).salaryMin());
+        assertNull(parsedListings.get(1).salaryMax());
+    }
+
+    @Test
+    void extractsSalaryFromThirdItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertNull(parsedListings.get(2).salaryMin());
+        assertEquals(45000, parsedListings.get(2).salaryMax());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
