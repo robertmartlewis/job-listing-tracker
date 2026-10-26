@@ -23,11 +23,13 @@ public final class RssFeedParser {
 
     private static ParsedListing toParsedListing(SyndEntry entry) {
         String link = entry.getLink().strip();
+        DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
+
         return new ParsedListing(
                 RfIdInterpreter.interpretRfId(link),
                 link,
                 entry.getTitle().strip(),
-                null,
+                descriptionValuesRaw.company(),
                 null,
                 entry.getPublishedDate().toInstant(),
                 null,
