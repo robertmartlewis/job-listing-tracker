@@ -133,6 +133,13 @@ public class RssFeedParserTest {
         assertEquals("Java, SpringBoot, Kafka", parsedListings.get(0).technologies());
     }
 
+    @Test
+    void extractsTechnologiesFromSecondItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("Java, Spring", parsedListings.get(1).technologies());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
