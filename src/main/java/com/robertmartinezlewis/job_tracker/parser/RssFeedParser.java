@@ -26,7 +26,7 @@ public final class RssFeedParser {
         return new ParsedListing(
                 RfIdInterpreter.interpretRfId(link),
                 link,
-                entry.getTitle(),
+                entry.getTitle().strip(),
                 null,
                 null,
                 null,
