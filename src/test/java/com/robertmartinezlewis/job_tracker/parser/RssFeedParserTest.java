@@ -126,6 +126,13 @@ public class RssFeedParserTest {
         assertEquals(Modality.HYBRID, parsedListings.get(1).modality());
     }
 
+    @Test
+    void extractsTechnologiesFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals("Java, SpringBoot, Kafka", parsedListings.get(0).technologies());
+    }
+
     String readClasspathResourceAsText(String fileName) {
         String path = "/" +  fileName;
         try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
