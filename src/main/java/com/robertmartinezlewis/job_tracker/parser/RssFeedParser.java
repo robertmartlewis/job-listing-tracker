@@ -1,11 +1,13 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
+import com.robertmartinezlewis.job_tracker.Modality;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 
 import java.io.StringReader;
+import java.time.LocalDate;
 import java.util.List;
 
 public final class RssFeedParser {
@@ -24,7 +26,7 @@ public final class RssFeedParser {
     private static ParsedListing toParsedListing(SyndEntry entry) {
         String link = entry.getLink().strip();
         DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
-
+        InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(descriptionValuesRaw.province());
         return new ParsedListing(
                 RfIdInterpreter.interpretRfId(link),
                 link,
@@ -32,8 +34,8 @@ public final class RssFeedParser {
                 descriptionValuesRaw.company(),
                 descriptionValuesRaw.description(),
                 entry.getPublishedDate().toInstant(),
-                null,
-                null,
+                interpretedLocation.province(),
+                interpretedLocation.modality(),
                 null,
                 null,
                 null,
