@@ -186,8 +186,8 @@ public class RssFeedParserTest {
 
     private List<ParsedListing> getParsedListings() throws FeedException {
         String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
-        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
-        return parsedListings;
+        ParsedFeed parsedListings = RssFeedParser.parseRssFeed(xml);
+        return parsedListings.listings();
     }
 
     String readClasspathResourceAsText(String fileName) {

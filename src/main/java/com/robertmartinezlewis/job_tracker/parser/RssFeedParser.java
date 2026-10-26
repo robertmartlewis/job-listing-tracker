@@ -15,12 +15,11 @@ public final class RssFeedParser {
     private RssFeedParser(){
     }
 
-    public static List<ParsedListing> parseRssFeed(String rssFeedText) throws FeedException {
+    public static ParsedFeed parseRssFeed(String rssFeedText) throws FeedException {
         StringReader reader = new StringReader(rssFeedText);
         SyndFeed input = new SyndFeedInput().build(reader);
 
-
-        return input.getEntries().stream().map(RssFeedParser::toParsedListing).toList();
+        return new ParsedFeed(input.getEntries().stream().map(RssFeedParser::toParsedListing).toList());
     }
 
     private static ParsedListing toParsedListing(SyndEntry entry) {
