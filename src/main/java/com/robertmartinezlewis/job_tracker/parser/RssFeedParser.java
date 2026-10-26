@@ -36,7 +36,7 @@ public final class RssFeedParser {
                 entry.getPublishedDate().toInstant(),
                 interpretedLocation.province(),
                 interpretedLocation.modality(),
-                null,
+                descriptionValuesRaw.technologies(),
                 null,
                 null,
                 null,
