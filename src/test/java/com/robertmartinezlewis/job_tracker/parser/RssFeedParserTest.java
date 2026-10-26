@@ -12,8 +12,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RssFeedParserTest {
 
@@ -111,6 +110,20 @@ public class RssFeedParserTest {
         String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
         List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
         assertEquals("Asturias", parsedListings.get(3).province());
+    }
+
+    @Test
+    void extractsNoProvinceFromSecondItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertNull(parsedListings.get(1).province());
+    }
+
+    @Test
+    void extractsModalityFromSecondItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(Modality.HYBRID, parsedListings.get(1).modality());
     }
 
     String readClasspathResourceAsText(String fileName) {
