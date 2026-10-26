@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,6 +67,13 @@ public class RssFeedParserTest {
         String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
         List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
         assertEquals("Desarrollador/a Java Backend (EJEMPLO B)", parsedListings.get(1).title());
+    }
+
+    @Test
+    void extractsPublishedAtFromFirstItem() throws FeedException {
+        String xml = readClasspathResourceAsText("tecnoempleo-sample.xml");
+        List<ParsedListing> parsedListings = RssFeedParser.parseRssFeed(xml);
+        assertEquals(Instant.parse("2026-09-25T13:13:16Z"), parsedListings.get(0).publishedAt());
     }
 
     String readClasspathResourceAsText(String fileName) {
