@@ -29,6 +29,8 @@ public final class RssFeedParser {
         InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(
                 descriptionValuesRaw.province());
         InterpretedSalary interpretedSalary = SalaryInterpreter.interpretSalary(descriptionValuesRaw.salary());
+        InterpretedExperience interpretedExperience = ExperienceInterpreter.interpretExperience(
+                descriptionValuesRaw.experience());
         return new ParsedListing(
                 RfIdInterpreter.interpretRfId(link),
                 link,
@@ -42,9 +44,9 @@ public final class RssFeedParser {
                 descriptionValuesRaw.salary(),
                 interpretedSalary.min(),
                 interpretedSalary.max(),
-                null,
-                null,
-                null
+                descriptionValuesRaw.experience(),
+                interpretedExperience.min(),
+                interpretedExperience.max()
         );
     }
 }
