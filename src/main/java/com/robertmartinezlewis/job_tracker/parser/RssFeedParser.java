@@ -23,6 +23,7 @@ public final class RssFeedParser {
 
         List<ParsedListing> listings = new ArrayList<>();
         List<Rejection> rejections = new ArrayList<>();
+        int counter = 0;
         for (SyndEntry entry : input.getEntries()) {
             DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
             Set<RejectionReason> rejectionReasons = new HashSet<>();
@@ -34,8 +35,9 @@ public final class RssFeedParser {
                 ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
                 listings.add(parsedListing);
             } else {
-                rejections.add(new Rejection(rejectionReasons));
+                rejections.add(new Rejection(rejectionReasons, 0));
             }
+            counter++;
         }
         return new ParsedFeed(listings, rejections);
     }
