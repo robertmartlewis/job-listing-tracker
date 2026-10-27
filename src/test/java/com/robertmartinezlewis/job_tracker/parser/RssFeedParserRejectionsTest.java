@@ -31,6 +31,13 @@ public class RssFeedParserRejectionsTest {
         assertEquals("Empresa Ejemplo Válida", parsedFeed.listings().get(0).company());
     }
 
+    @Test
+    void reportsPositionOfRejectedItem()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed();
+
+        assertEquals(1, parsedFeed.rejections().get(0).position());
+    }
+
     private ParsedFeed getParsedFeed() throws FeedException {
         String xml = readClasspathResourceAsText("tecnoempleo-sample-invalid.xml");
         return RssFeedParser.parseRssFeed(xml);
