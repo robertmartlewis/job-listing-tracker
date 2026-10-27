@@ -7,7 +7,9 @@ import com.rometools.rome.io.SyndFeedInput;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class RssFeedParser {
 
@@ -20,12 +22,22 @@ public final class RssFeedParser {
 
 
         List<ParsedListing> listings = new ArrayList<>();
+        List<Rejection> rejections = new ArrayList<>();
         for (SyndEntry entry : input.getEntries()) {
             DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
-            ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
-            listings.add(parsedListing);
+            Set<RejectionReason> rejectionReasons = new HashSet<>();
+            if (descriptionValuesRaw.company() == null) {
+                rejectionReasons.add(RejectionReason.MISSING_COMPANY);
+            }
+
+            if (rejectionReasons.isEmpty()) {
+                ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
+                listings.add(parsedListing);
+            } else {
+                rejections.add(new Rejection(rejectionReasons));
+            }
         }
-        return new ParsedFeed(listings, List.of());
+        return new ParsedFeed(listings, rejections);
     }
 
     private static ParsedListing toParsedListing(SyndEntry entry, DescriptionValuesRaw descriptionValuesRaw) {
