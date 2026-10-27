@@ -38,6 +38,22 @@ public class RssFeedParserRejectionsTest {
         assertEquals(2, parsedFeed.rejections().get(1).position());
     }
 
+    @Test
+    void rejectsItemWithoutTitle()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
+
+        assertEquals(1, parsedFeed.rejections().size());
+        assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(0).reasons());
+    }
+
+    @Test
+    void keepsValidItemWhenAnotherTitleIsRejected()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
+
+        assertEquals(1, parsedFeed.listings().size());
+        assertEquals("Desarrollador/a Java (EJEMPLO VÁLIDO)", parsedFeed.listings().get(0).title());
+    }
+
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
         String xml = readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);
