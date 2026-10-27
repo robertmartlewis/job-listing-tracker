@@ -42,7 +42,7 @@ public class RssFeedParserRejectionsTest {
     void rejectsItemWithoutTitle()  throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
 
-        assertEquals(1, parsedFeed.rejections().size());
+        assertEquals(2, parsedFeed.rejections().size());
         assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(0).reasons());
     }
 
@@ -52,6 +52,13 @@ public class RssFeedParserRejectionsTest {
 
         assertEquals(1, parsedFeed.listings().size());
         assertEquals("Desarrollador/a Java (EJEMPLO VÁLIDO)", parsedFeed.listings().get(0).title());
+    }
+
+    @Test
+    void rejectsItemWithBlankTitle()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(1).reasons());
     }
 
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
