@@ -16,7 +16,7 @@ public class RssFeedParserRejectionsTest {
 
     @Test
     void rejectsItemWithoutCompany()  throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed();
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
 
         assertEquals(2, parsedFeed.rejections().size());
         assertEquals(Set.of(RejectionReason.MISSING_COMPANY), parsedFeed.rejections().get(0).reasons());
@@ -24,7 +24,7 @@ public class RssFeedParserRejectionsTest {
 
     @Test
     void keepsValidItemWhenAnotherCompanyIsRejected()  throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed();
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
 
         assertEquals(1, parsedFeed.listings().size());
         assertEquals("Empresa Ejemplo Válida", parsedFeed.listings().get(0).company());
@@ -32,14 +32,14 @@ public class RssFeedParserRejectionsTest {
 
     @Test
     void reportsPositionOfRejectedItem()  throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed();
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
 
         assertEquals(1, parsedFeed.rejections().get(0).position());
         assertEquals(2, parsedFeed.rejections().get(1).position());
     }
 
-    private ParsedFeed getParsedFeed() throws FeedException {
-        String xml = readClasspathResourceAsText("tecnoempleo-sample-invalid.xml");
+    private ParsedFeed getParsedFeed(String fileName) throws FeedException {
+        String xml = readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);
     }
 
