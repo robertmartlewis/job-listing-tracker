@@ -8,6 +8,7 @@ import com.rometools.rome.io.SyndFeedInput;
 
 import java.io.StringReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class RssFeedParser {
@@ -18,8 +19,10 @@ public final class RssFeedParser {
     public static ParsedFeed parseRssFeed(String rssFeedText) throws FeedException {
         StringReader reader = new StringReader(rssFeedText);
         SyndFeed input = new SyndFeedInput().build(reader);
+        List<Rejection> rejections = new ArrayList<>();
 
-        return new ParsedFeed(input.getEntries().stream().map(RssFeedParser::toParsedListing).toList());
+        return new ParsedFeed(input.getEntries().stream().map(RssFeedParser::toParsedListing).toList(),
+                rejections);
     }
 
     private static ParsedListing toParsedListing(SyndEntry entry) {
