@@ -30,6 +30,9 @@ public final class RssFeedParser {
             if (descriptionValuesRaw.company() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_COMPANY);
             }
+            if (entry.getTitle() == null) {
+                rejectionReasons.add(RejectionReason.MISSING_TITLE);
+            }
 
             if (rejectionReasons.isEmpty()) {
                 ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
