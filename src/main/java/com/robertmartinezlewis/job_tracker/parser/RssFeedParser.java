@@ -33,6 +33,9 @@ public final class RssFeedParser {
             if (entry.getTitle() == null || entry.getTitle().isBlank()) {
                 rejectionReasons.add(RejectionReason.MISSING_TITLE);
             }
+            if (entry.getPublishedDate() == null) {
+                rejectionReasons.add(RejectionReason.MISSING_PUBLISHED_DATE);
+            }
 
             if (rejectionReasons.isEmpty()) {
                 ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
