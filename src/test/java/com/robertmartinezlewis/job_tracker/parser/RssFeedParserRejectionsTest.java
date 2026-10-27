@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Set;
 
 
@@ -59,6 +60,29 @@ public class RssFeedParserRejectionsTest {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
 
         assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(1).reasons());
+    }
+
+    @Test
+    void rejectsItemWithoutPublishedDate()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
+
+        assertEquals(2, parsedFeed.rejections().size());
+        assertEquals(Set.of(RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(0).reasons());
+    }
+
+    @Test
+    void keepsValidItemWhenAnotherPublishedDateIsRejected()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
+
+        assertEquals(1, parsedFeed.listings().size());
+        assertEquals(Instant.parse("2026-10-05T09:00:00Z"), parsedFeed.listings().get(0).publishedAt());
+    }
+
+    @Test
+    void rejectsIllegiblePublishedDate()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(1).reasons());
     }
 
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
