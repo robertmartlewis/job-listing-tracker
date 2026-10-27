@@ -1,13 +1,11 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
-import com.robertmartinezlewis.job_tracker.Modality;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 
 import java.io.StringReader;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +17,19 @@ public final class RssFeedParser {
     public static ParsedFeed parseRssFeed(String rssFeedText) throws FeedException {
         StringReader reader = new StringReader(rssFeedText);
         SyndFeed input = new SyndFeedInput().build(reader);
-        List<Rejection> rejections = new ArrayList<>();
 
-        return new ParsedFeed(input.getEntries().stream().map(RssFeedParser::toParsedListing).toList(),
-                rejections);
+
+        List<ParsedListing> listings = new ArrayList<>();
+        for (SyndEntry entry : input.getEntries()) {
+            DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
+            ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
+            listings.add(parsedListing);
+        }
+        return new ParsedFeed(listings, List.of());
     }
 
-    private static ParsedListing toParsedListing(SyndEntry entry) {
+    private static ParsedListing toParsedListing(SyndEntry entry, DescriptionValuesRaw descriptionValuesRaw) {
         String link = entry.getLink().strip();
-        DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
         InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(
                 descriptionValuesRaw.province());
         InterpretedSalary interpretedSalary = SalaryInterpreter.interpretSalary(descriptionValuesRaw.salary());
