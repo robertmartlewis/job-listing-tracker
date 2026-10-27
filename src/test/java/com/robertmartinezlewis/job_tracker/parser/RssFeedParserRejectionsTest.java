@@ -7,9 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +18,7 @@ public class RssFeedParserRejectionsTest {
     void rejectsItemWithoutCompany()  throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed();
 
-        assertEquals(1, parsedFeed.rejections().size());
+        assertEquals(2, parsedFeed.rejections().size());
         assertEquals(Set.of(RejectionReason.MISSING_COMPANY), parsedFeed.rejections().get(0).reasons());
     }
 
@@ -36,6 +35,7 @@ public class RssFeedParserRejectionsTest {
         ParsedFeed parsedFeed = getParsedFeed();
 
         assertEquals(1, parsedFeed.rejections().get(0).position());
+        assertEquals(2, parsedFeed.rejections().get(1).position());
     }
 
     private ParsedFeed getParsedFeed() throws FeedException {
