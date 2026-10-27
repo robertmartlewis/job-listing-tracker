@@ -30,7 +30,7 @@ public final class RssFeedParser {
             if (descriptionValuesRaw.company() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_COMPANY);
             }
-            if (entry.getTitle() == null) {
+            if (entry.getTitle() == null || entry.getTitle().isBlank()) {
                 rejectionReasons.add(RejectionReason.MISSING_TITLE);
             }
 
