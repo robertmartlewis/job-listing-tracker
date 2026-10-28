@@ -134,6 +134,32 @@ public class RssFeedParserRejectionsTest {
                 parsedFeed.rejections().get(1).reasons());
     }
 
+    @Test
+    void rejectsItemWithoutDescription() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-description.xml");
+
+        assertEquals(2, parsedFeed.rejections().size());
+        assertEquals(Set.of(RejectionReason.MISSING_DESCRIPTION, RejectionReason.MISSING_COMPANY),
+                parsedFeed.rejections().get(0).reasons());
+    }
+
+    @Test
+    void keepsValidItemWhenAnotherDescriptionIsRejected() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-description.xml");
+
+        assertEquals(1, parsedFeed.listings().size());
+        assertEquals("Oferta de control para el fixture de descripciones ausentes.",
+                parsedFeed.listings().get(0).description());
+    }
+
+    @Test
+    void rejectsItemWithBlankDescription() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-description.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_DESCRIPTION),
+                parsedFeed.rejections().get(1).reasons());
+    }
+
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
         String xml = readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);
