@@ -29,6 +29,7 @@ public final class RssFeedParser {
             DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
             Set<RejectionReason> rejectionReasons = new HashSet<>();
             String link = entry.getLink().strip();
+            String rfId = RfIdInterpreter.interpretRfId(link);
             if (descriptionValuesRaw.company() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_COMPANY);
             }
@@ -38,12 +39,12 @@ public final class RssFeedParser {
             if (entry.getPublishedDate() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_PUBLISHED_DATE);
             }
-            if (RfIdInterpreter.interpretRfId(link) == null) {
+            if (rfId == null) {
                 rejectionReasons.add(RejectionReason.MISSING_RF_ID);
             }
 
             if (rejectionReasons.isEmpty()) {
-                ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw);
+                ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw, link, rfId);
                 listings.add(parsedListing);
             } else {
                 rejections.add(new Rejection(rejectionReasons, entryIndex));
@@ -53,15 +54,17 @@ public final class RssFeedParser {
         return new ParsedFeed(listings, rejections);
     }
 
-    private static ParsedListing toParsedListing(SyndEntry entry, DescriptionValuesRaw descriptionValuesRaw) {
-        String link = entry.getLink().strip();
+    private static ParsedListing toParsedListing(SyndEntry entry,
+                                                 DescriptionValuesRaw descriptionValuesRaw,
+                                                 String link,
+                                                 String rfId) {
         InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(
                 descriptionValuesRaw.province());
         InterpretedSalary interpretedSalary = SalaryInterpreter.interpretSalary(descriptionValuesRaw.salary());
         InterpretedExperience interpretedExperience = ExperienceInterpreter.interpretExperience(
                 descriptionValuesRaw.experience());
         return new ParsedListing(
-                RfIdInterpreter.interpretRfId(link),
+                rfId,
                 link,
                 entry.getTitle().strip(),
                 descriptionValuesRaw.company(),
