@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title> Tecnoempleo.com - Ofertas de trabajo y empleo  (tecnologías: java)</title>
+        <description>Canal RSS de ofertas de empleo de Tecnoempleo.com  (tecnologías: java)</description>
+        <language>es</language>
+        <pubDate>Wed, 07 Oct 2026 12:07:53 +0000</pubDate>
+        <link>https://www.tecnoempleo.com</link>
+        <atom:link href="https://www.tecnoempleo.com/alertas-empleo-rss.php?te=java" rel="self" type="application/rss+xml" />
+
+        <!--
+          ITEM 1 (válido)
+          Control: item correcto. Debe salir en las ofertas y no en los rechazos.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO VÁLIDO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000601]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000601]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Válida                <br /><b>Provincia:</b>&nbsp;Asturias                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta de control para el fixture de descripciones ausentes.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;2 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000601<br />
+        ]]></description>
+            <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 2 (sin elemento description)
+          Motivos: según la decisión de diseño (ver los tests).
+          No existe el elemento <description> en el item.
+          Posición en el feed: 1.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO SIN DESCRIPCION)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-descripcion/java/rf-00000000000000000602]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-descripcion/java/rf-00000000000000000602]]></guid>
+            <pubDate>Tue, 06 Oct 2026 10:30:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 3 (etiqueta Descripción en blanco)
+          Falla un solo motivo: MISSING_DESCRIPTION.
+          El elemento <description> existe y trae la empresa, pero el texto de "Descripción:" está en blanco.
+          Posición en el feed: 2.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO DESCRIPCION EN BLANCO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-descripcion-en-blanco/java/rf-00000000000000000603]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-descripcion-en-blanco/java/rf-00000000000000000603]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Descripcion En Blanco                <br /><b>Provincia:</b>&nbsp;presencial                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;1 año            <br /><b>Funciones:</b>&nbsp;Programador            <br />
+        ]]></description>
+            <pubDate>Wed, 07 Oct 2026 08:15:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
