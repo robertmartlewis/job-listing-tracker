@@ -5,6 +5,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 
+import javax.swing.*;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ public final class RssFeedParser {
         for (SyndEntry entry : input.getEntries()) {
             DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
             Set<RejectionReason> rejectionReasons = new HashSet<>();
+            String link = entry.getLink().strip();
             if (descriptionValuesRaw.company() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_COMPANY);
             }
@@ -35,6 +37,9 @@ public final class RssFeedParser {
             }
             if (entry.getPublishedDate() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_PUBLISHED_DATE);
+            }
+            if (RfIdInterpreter.interpretRfId(link) == null) {
+                rejectionReasons.add(RejectionReason.MISSING_RF_ID);
             }
 
             if (rejectionReasons.isEmpty()) {
