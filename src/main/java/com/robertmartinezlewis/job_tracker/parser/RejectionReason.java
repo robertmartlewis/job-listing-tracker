@@ -5,5 +5,6 @@ public enum RejectionReason {
     MISSING_COMPANY,
     MISSING_PUBLISHED_DATE,
     MISSING_RF_ID,
-    MISSING_URL
+    MISSING_URL,
+    MISSING_DESCRIPTION
 }
