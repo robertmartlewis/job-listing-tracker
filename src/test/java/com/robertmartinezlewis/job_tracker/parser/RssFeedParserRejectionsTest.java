@@ -85,6 +85,29 @@ public class RssFeedParserRejectionsTest {
         assertEquals(Set.of(RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(1).reasons());
     }
 
+    @Test
+    void rejectsItemWithoutRfId()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
+
+        assertEquals(2, parsedFeed.rejections().size());
+        assertEquals(Set.of(RejectionReason.MISSING_RF_ID), parsedFeed.rejections().get(0).reasons());
+    }
+
+    @Test
+    void keepsValidItemWhenAnotherRfIdIsRejected()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
+
+        assertEquals(1, parsedFeed.listings().size());
+        assertEquals("rf-00000000000000000401", parsedFeed.listings().get(0).rfId());
+    }
+
+    @Test
+    void rejectsInvalidRfId()  throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_RF_ID), parsedFeed.rejections().get(1).reasons());
+    }
+
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
         String xml = readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);

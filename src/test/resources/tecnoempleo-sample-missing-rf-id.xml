@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title> Tecnoempleo.com - Ofertas de trabajo y empleo  (tecnologías: java)</title>
+        <description>Canal RSS de ofertas de empleo de Tecnoempleo.com  (tecnologías: java)</description>
+        <language>es</language>
+        <pubDate>Wed, 07 Oct 2026 12:07:53 +0000</pubDate>
+        <link>https://www.tecnoempleo.com</link>
+        <atom:link href="https://www.tecnoempleo.com/alertas-empleo-rss.php?te=java" rel="self" type="application/rss+xml" />
+
+        <!--
+          ITEM 1 (válido)
+          Control: item correcto. Debe salir en las ofertas y no en los rechazos.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO VÁLIDO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000401]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000401]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Válida                <br /><b>Provincia:</b>&nbsp;Asturias                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta de control para el fixture de identificadores rf ausentes.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;2 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000401<br />
+        ]]></description>
+            <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 2 (enlace sin identificador rf)
+          Falla un solo motivo: MISSING_RF_ID.
+          El enlace existe pero no contiene ningún identificador rf-...
+          Posición en el feed: 1.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO SIN RF)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-rf/java/]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-rf/java/]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Sin Rf                <br /><b>Provincia:</b>&nbsp;hibrido                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta cuyo enlace no trae identificador rf.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;3-5 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-sin-rf/java/<br />
+        ]]></description>
+            <pubDate>Tue, 06 Oct 2026 10:30:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 3 (identificador rf incompleto)
+          Falla un solo motivo: MISSING_RF_ID.
+          El enlace termina en rf- con solo 19 dígitos (hacen falta 20).
+          Posición en el feed: 2.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO RF INCOMPLETO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-rf-incompleto/java/rf-0000000000000000403]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-rf-incompleto/java/rf-0000000000000000403]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Rf Incompleto                <br /><b>Provincia:</b>&nbsp;presencial                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta cuyo identificador rf está truncado.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;1 año            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-rf-incompleto/java/rf-0000000000000000403<br />
+        ]]></description>
+            <pubDate>Wed, 07 Oct 2026 08:15:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
