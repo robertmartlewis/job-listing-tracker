@@ -3,10 +3,6 @@ package com.robertmartinezlewis.job_tracker.parser;
 import com.rometools.rome.io.FeedException;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Set;
 
@@ -209,19 +205,9 @@ public class RssFeedParserRejectionsTest {
     }
 
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
-        String xml = readClasspathResourceAsText(fileName);
+        String xml = TestResources.readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);
     }
 
-    String readClasspathResourceAsText(String fileName) {
-        String path = "/" +  fileName;
-        try (InputStream stream =  RssFeedParserTest.class.getResourceAsStream(path)) {
-            if (stream == null) throw new FileNotFoundException(path);
 
-            byte[] bytes = stream.readAllBytes();
-            return new String(bytes, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading " + fileName, e);
-        }
-    }
 }
