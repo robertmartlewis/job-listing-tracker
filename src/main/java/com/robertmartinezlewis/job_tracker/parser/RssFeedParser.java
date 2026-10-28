@@ -1,38 +1,76 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
-import com.robertmartinezlewis.job_tracker.Modality;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 
 import java.io.StringReader;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class RssFeedParser {
 
     private RssFeedParser(){
     }
 
-    public static List<ParsedListing> parseRssFeed(String rssFeedText) throws FeedException {
+    public static ParsedFeed parseRssFeed(String rssFeedText) throws FeedException {
         StringReader reader = new StringReader(rssFeedText);
         SyndFeed input = new SyndFeedInput().build(reader);
 
 
-        return input.getEntries().stream().map(RssFeedParser::toParsedListing).toList();
+        List<ParsedListing> listings = new ArrayList<>();
+        List<Rejection> rejections = new ArrayList<>();
+        int entryIndex = 0;
+        for (SyndEntry entry : input.getEntries()) {
+            String descriptionHtml = entry.getDescription() != null ? entry.getDescription().getValue() : "";
+            DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(descriptionHtml);
+            Set<RejectionReason> rejectionReasons = new HashSet<>();
+            String link = entry.getLink() != null ? entry.getLink().strip() : "";
+            String rfId = RfIdInterpreter.interpretRfId(link);
+            if (descriptionValuesRaw.company() == null) {
+                rejectionReasons.add(RejectionReason.MISSING_COMPANY);
+            }
+            if (entry.getTitle() == null || entry.getTitle().isBlank()) {
+                rejectionReasons.add(RejectionReason.MISSING_TITLE);
+            }
+            if (entry.getPublishedDate() == null) {
+                rejectionReasons.add(RejectionReason.MISSING_PUBLISHED_DATE);
+            }
+            if (rfId == null) {
+                rejectionReasons.add(RejectionReason.MISSING_RF_ID);
+            }
+            if (link.isEmpty()) {
+                rejectionReasons.add(RejectionReason.MISSING_URL);
+            }
+            if (descriptionValuesRaw.description() == null) {
+                rejectionReasons.add(RejectionReason.MISSING_DESCRIPTION);
+            }
+
+            if (rejectionReasons.isEmpty()) {
+                ParsedListing parsedListing = toParsedListing(entry, descriptionValuesRaw, link, rfId);
+                listings.add(parsedListing);
+            } else {
+                rejections.add(new Rejection(rejectionReasons, entryIndex));
+            }
+            entryIndex++;
+        }
+        return new ParsedFeed(listings, rejections);
     }
 
-    private static ParsedListing toParsedListing(SyndEntry entry) {
-        String link = entry.getLink().strip();
-        DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
+    private static ParsedListing toParsedListing(SyndEntry entry,
+                                                 DescriptionValuesRaw descriptionValuesRaw,
+                                                 String link,
+                                                 String rfId) {
         InterpretedLocation interpretedLocation = LocationInterpreter.interpretLocation(
                 descriptionValuesRaw.province());
         InterpretedSalary interpretedSalary = SalaryInterpreter.interpretSalary(descriptionValuesRaw.salary());
         InterpretedExperience interpretedExperience = ExperienceInterpreter.interpretExperience(
                 descriptionValuesRaw.experience());
         return new ParsedListing(
-                RfIdInterpreter.interpretRfId(link),
+                rfId,
                 link,
                 entry.getTitle().strip(),
                 descriptionValuesRaw.company(),

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title> Tecnoempleo.com - Ofertas de trabajo y empleo  (tecnologías: java)</title>
+        <description>Canal RSS de ofertas de empleo de Tecnoempleo.com  (tecnologías: java)</description>
+        <language>es</language>
+        <pubDate>Wed, 07 Oct 2026 12:07:53 +0000</pubDate>
+        <link>https://www.tecnoempleo.com</link>
+        <atom:link href="https://www.tecnoempleo.com/alertas-empleo-rss.php?te=java" rel="self" type="application/rss+xml" />
+
+        <!--
+          ITEM 1 (válido)
+          Control: item correcto. Debe salir en las ofertas y no en los rechazos.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO VÁLIDO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000101]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000101]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Válida                <br /><b>Provincia:</b>&nbsp;Asturias                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta de control para el fixture de empresas ausentes.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;2 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000101<br />
+        ]]></description>
+            <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 2 (sin empresa, primer rechazo)
+          Falla un solo motivo: MISSING_COMPANY.
+          La etiqueta "Empresa:" está presente pero su valor está en blanco.
+          Posición en el feed: 1.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java Backend (EJEMPLO SIN EMPRESA 1)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-empresa-1/java/rf-00000000000000000102]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-empresa-1/java/rf-00000000000000000102]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;                <br /><b>Provincia:</b>&nbsp;hibrido                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta a la que le falta el nombre de la empresa.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;3-5 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-sin-empresa-1/java/rf-00000000000000000102<br />
+        ]]></description>
+            <pubDate>Tue, 06 Oct 2026 10:30:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 3 (sin empresa, segundo rechazo)
+          Falla un solo motivo: MISSING_COMPANY.
+          Va después de otro rechazo para comprobar que la posición cuenta
+          todas las entradas del feed y no solo las aceptadas.
+          Posición en el feed: 2.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java Backend (EJEMPLO SIN EMPRESA 2)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-empresa-2/java/rf-00000000000000000103]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-sin-empresa-2/java/rf-00000000000000000103]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;                <br /><b>Provincia:</b>&nbsp;presencial                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Otra oferta a la que le falta el nombre de la empresa.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;1 año            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-sin-empresa-2/java/rf-00000000000000000103<br />
+        ]]></description>
+            <pubDate>Wed, 07 Oct 2026 08:15:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>

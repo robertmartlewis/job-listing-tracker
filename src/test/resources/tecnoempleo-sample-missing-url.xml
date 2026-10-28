@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title> Tecnoempleo.com - Ofertas de trabajo y empleo  (tecnologías: java)</title>
+        <description>Canal RSS de ofertas de empleo de Tecnoempleo.com  (tecnologías: java)</description>
+        <language>es</language>
+        <pubDate>Wed, 07 Oct 2026 12:07:53 +0000</pubDate>
+        <link>https://www.tecnoempleo.com</link>
+        <atom:link href="https://www.tecnoempleo.com/alertas-empleo-rss.php?te=java" rel="self" type="application/rss+xml" />
+
+        <!--
+          ITEM 1 (válido)
+          Control: item correcto. Debe salir en las ofertas y no en los rechazos.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO VÁLIDO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000501]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000501]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Válida                <br /><b>Provincia:</b>&nbsp;Asturias                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta de control para el fixture de enlaces ausentes.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;2 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000501<br />
+        ]]></description>
+            <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 2 (sin enlace)
+          Falla dos motivos: MISSING_URL y MISSING_RF_ID (sin enlace no hay identificador rf).
+          No existe el elemento <link>, y tampoco <guid>: Rome usaría el guid como enlace.
+          Posición en el feed: 1.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO SIN ENLACE)]]></title>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Sin Enlace                <br /><b>Provincia:</b>&nbsp;hibrido                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta a la que le falta el enlace.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;3-5 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />
+        ]]></description>
+            <pubDate>Tue, 06 Oct 2026 10:30:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 3 (enlace en blanco)
+          Falla dos motivos: MISSING_URL y MISSING_RF_ID.
+          El elemento <link> existe pero solo contiene espacios.
+          Posición en el feed: 2.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO ENLACE EN BLANCO)]]></title>
+            <link><![CDATA[    ]]></link>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Enlace En Blanco                <br /><b>Provincia:</b>&nbsp;presencial                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta cuyo enlace solo tiene espacios.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;1 año            <br /><b>Funciones:</b>&nbsp;Programador            <br />
+        ]]></description>
+            <pubDate>Wed, 07 Oct 2026 08:15:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
