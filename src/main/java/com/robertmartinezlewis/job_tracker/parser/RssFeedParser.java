@@ -28,7 +28,7 @@ public final class RssFeedParser {
         for (SyndEntry entry : input.getEntries()) {
             DescriptionValuesRaw descriptionValuesRaw = DescriptionParser.parse(entry.getDescription().getValue());
             Set<RejectionReason> rejectionReasons = new HashSet<>();
-            String link = entry.getLink().strip();
+            String link = entry.getLink() != null ? entry.getLink().strip() : "";
             String rfId = RfIdInterpreter.interpretRfId(link);
             if (descriptionValuesRaw.company() == null) {
                 rejectionReasons.add(RejectionReason.MISSING_COMPANY);
@@ -41,6 +41,9 @@ public final class RssFeedParser {
             }
             if (rfId == null) {
                 rejectionReasons.add(RejectionReason.MISSING_RF_ID);
+            }
+            if (link.isEmpty()) {
+                rejectionReasons.add(RejectionReason.MISSING_URL);
             }
 
             if (rejectionReasons.isEmpty()) {
