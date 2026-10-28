@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title> Tecnoempleo.com - Ofertas de trabajo y empleo  (tecnologías: java)</title>
+        <description>Canal RSS de ofertas de empleo de Tecnoempleo.com  (tecnologías: java)</description>
+        <language>es</language>
+        <pubDate>Wed, 07 Oct 2026 12:07:53 +0000</pubDate>
+        <link>https://www.tecnoempleo.com</link>
+        <atom:link href="https://www.tecnoempleo.com/alertas-empleo-rss.php?te=java" rel="self" type="application/rss+xml" />
+
+        <!--
+          ITEM 1 (válido)
+          Control: item correcto. Debe salir en las ofertas y no en los rechazos.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO VÁLIDO)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000701]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000701]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Válida                <br /><b>Provincia:</b>&nbsp;Asturias                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta de control para el fixture de varios motivos.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;2 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />Descubre más: https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000701<br />
+        ]]></description>
+            <pubDate>Mon, 05 Oct 2026 09:00:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 2 (sin título, sin empresa, sin fecha)
+          Falla tres motivos: MISSING_TITLE, MISSING_COMPANY y MISSING_PUBLISHED_DATE.
+          No existe el elemento <title>, la etiqueta "Empresa:" está en blanco y no existe <pubDate>.
+          El enlace, el rf-id y la descripción son correctos.
+          Posición en el feed: 1.
+        -->
+        <item>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-tres-motivos/java/rf-00000000000000000702]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-tres-motivos/java/rf-00000000000000000702]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;                <br /><b>Provincia:</b>&nbsp;hibrido                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;Oferta sin título, sin empresa y sin fecha.            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;3-5 años            <br /><b>Funciones:</b>&nbsp;Programador            <br />
+        ]]></description>
+        </item>
+
+        <!--
+          ITEM 3 (rf-id truncado y descripción en blanco)
+          Falla dos motivos: MISSING_RF_ID y MISSING_DESCRIPTION.
+          El enlace existe (no falta la URL) pero termina en un rf-id de 3 dígitos.
+          La empresa, el título y la fecha son correctos; la etiqueta "Descripción:" está en blanco.
+          Posición en el feed: 2.
+        -->
+        <item>
+            <title><![CDATA[Desarrollador/a Java (EJEMPLO RF-ID Y DESCRIPCION)]]></title>
+            <link><![CDATA[https://www.tecnoempleo.com/ejemplo-dos-motivos/java/rf-703]]></link>
+            <guid><![CDATA[https://www.tecnoempleo.com/ejemplo-dos-motivos/java/rf-703]]></guid>
+            <description><![CDATA[<b>Empresa:</b>&nbsp;Empresa Ejemplo Dos Motivos                <br /><b>Provincia:</b>&nbsp;presencial                <br /><b>Población:</b>&nbsp;
+                            <br /><b>Descripción:</b>&nbsp;            <br /><b>Tecnologías:</b>&nbsp;Java, Spring            <br /><b>Tipo de Contrato:</b>&nbsp;Indefinido            <br /><b>Salario:</b>&nbsp;Sin especificar            <br /><b>Experiencia:</b>&nbsp;1 año            <br /><b>Funciones:</b>&nbsp;Programador            <br />
+        ]]></description>
+            <pubDate>Wed, 07 Oct 2026 08:15:00 +0000</pubDate>
+        </item>
+
+        <!--
+          ITEM 4 (los seis motivos)
+          Falla MISSING_TITLE, MISSING_COMPANY, MISSING_PUBLISHED_DATE, MISSING_RF_ID,
+          MISSING_URL y MISSING_DESCRIPTION.
+          Solo trae <category>, para que Rome construya la entrada: sin <title>, <link>, <guid>,
+          <description> ni <pubDate>.
+          Posición en el feed: 3.
+        -->
+        <item>
+            <category><![CDATA[java]]></category>
+        </item>
+    </channel>
+</rss>

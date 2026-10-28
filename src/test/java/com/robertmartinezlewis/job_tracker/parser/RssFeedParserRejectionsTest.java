@@ -160,6 +160,54 @@ public class RssFeedParserRejectionsTest {
                 parsedFeed.rejections().get(1).reasons());
     }
 
+    @Test
+    void keepsValidItemWhenSeveralOthersAreRejected() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
+
+        assertEquals(1, parsedFeed.listings().size());
+        assertEquals("rf-00000000000000000701", parsedFeed.listings().get(0).rfId());
+    }
+
+    @Test
+    void rejectsItemWithoutTileCompanyAndPublishedDate() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
+
+        assertEquals(3, parsedFeed.rejections().size());
+        assertEquals(Set.of(RejectionReason.MISSING_TITLE,
+                RejectionReason.MISSING_COMPANY,
+                RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(0).reasons());
+    }
+
+    @Test
+    void rejectsItemWithInvalidRfIdAndBlankDescription() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_RF_ID,
+                RejectionReason.MISSING_DESCRIPTION), parsedFeed.rejections().get(1).reasons());
+    }
+
+    @Test
+    void rejectsItemWithMissingEveryRequiredField() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_TITLE,
+                    RejectionReason.MISSING_COMPANY,
+                    RejectionReason.MISSING_PUBLISHED_DATE,
+                    RejectionReason.MISSING_RF_ID,
+                    RejectionReason.MISSING_URL,
+                    RejectionReason.MISSING_DESCRIPTION),
+                parsedFeed.rejections().get(2).reasons());
+    }
+
+    @Test
+    void reportsPositionOfEachItemRejectedForSeveralReason() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
+
+        assertEquals(1, parsedFeed.rejections().get(0).position());
+        assertEquals(2, parsedFeed.rejections().get(1).position());
+        assertEquals(3, parsedFeed.rejections().get(2).position());
+    }
+
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
         String xml = readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);
