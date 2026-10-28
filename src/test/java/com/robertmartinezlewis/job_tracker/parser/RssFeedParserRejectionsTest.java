@@ -2,21 +2,34 @@ package com.robertmartinezlewis.job_tracker.parser;
 
 import com.rometools.rome.io.FeedException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Instant;
 import java.util.Set;
+import java.util.stream.Stream;
 
-
+import static com.robertmartinezlewis.job_tracker.parser.RejectionReason.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RssFeedParserRejectionsTest {
 
-    @Test
-    void rejectsItemWithoutCompany() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
+    @ParameterizedTest(name = "{0}: rejection {1} has reasons {2}")
+    @MethodSource("expectedRejectionReasons")
+    void rejectsItemWithExpectedReasons(String fixture, int rejectionIndex, Set<RejectionReason> expectedReasons)
+            throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed(fixture);
 
-        assertEquals(2, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_COMPANY), parsedFeed.rejections().get(0).reasons());
+        assertEquals(expectedReasons, parsedFeed.rejections().get(rejectionIndex).reasons());
+    }
+
+    @ParameterizedTest(name = "{0}: {1} rejections")
+    @MethodSource("expectedRejectionCounts")
+    void rejectsExpectedNumberOfItems(String fixture, int expectedCount) throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed(fixture);
+
+        assertEquals(expectedCount, parsedFeed.rejections().size());
     }
 
     @Test
@@ -36,34 +49,11 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsItemWithoutTitle() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
-
-        assertEquals(2, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(0).reasons());
-    }
-
-    @Test
     void keepsValidItemWhenAnotherTitleIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
 
         assertEquals(1, parsedFeed.listings().size());
         assertEquals("Desarrollador/a Java (EJEMPLO VÁLIDO)", parsedFeed.listings().get(0).title());
-    }
-
-    @Test
-    void rejectsItemWithBlankTitle() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(1).reasons());
-    }
-
-    @Test
-    void rejectsItemWithoutPublishedDate() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
-
-        assertEquals(2, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(0).reasons());
     }
 
     @Test
@@ -75,42 +65,11 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsIllegiblePublishedDate() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(1).reasons());
-    }
-
-    @Test
-    void rejectsItemWithoutRfId() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
-
-        assertEquals(2, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_RF_ID), parsedFeed.rejections().get(0).reasons());
-    }
-
-    @Test
     void keepsValidItemWhenAnotherRfIdIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
 
         assertEquals(1, parsedFeed.listings().size());
         assertEquals("rf-00000000000000000401", parsedFeed.listings().get(0).rfId());
-    }
-
-    @Test
-    void rejectsInvalidRfId() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_RF_ID), parsedFeed.rejections().get(1).reasons());
-    }
-
-    @Test
-    void rejectsItemWithoutUrl() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-url.xml");
-
-        assertEquals(2, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_URL, RejectionReason.MISSING_RF_ID),
-                parsedFeed.rejections().get(0).reasons());
     }
 
     @Test
@@ -123,37 +82,12 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsInvalidUrl() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-url.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_URL, RejectionReason.MISSING_RF_ID),
-                parsedFeed.rejections().get(1).reasons());
-    }
-
-    @Test
-    void rejectsItemWithoutDescription() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-description.xml");
-
-        assertEquals(2, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_DESCRIPTION, RejectionReason.MISSING_COMPANY),
-                parsedFeed.rejections().get(0).reasons());
-    }
-
-    @Test
     void keepsValidItemWhenAnotherDescriptionIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-description.xml");
 
         assertEquals(1, parsedFeed.listings().size());
         assertEquals("Oferta de control para el fixture de descripciones ausentes.",
                 parsedFeed.listings().get(0).description());
-    }
-
-    @Test
-    void rejectsItemWithBlankDescription() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-description.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_DESCRIPTION),
-                parsedFeed.rejections().get(1).reasons());
     }
 
     @Test
@@ -165,38 +99,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsItemWithoutTileCompanyAndPublishedDate() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
-
-        assertEquals(3, parsedFeed.rejections().size());
-        assertEquals(Set.of(RejectionReason.MISSING_TITLE,
-                RejectionReason.MISSING_COMPANY,
-                RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(0).reasons());
-    }
-
-    @Test
-    void rejectsItemWithInvalidRfIdAndBlankDescription() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_RF_ID,
-                RejectionReason.MISSING_DESCRIPTION), parsedFeed.rejections().get(1).reasons());
-    }
-
-    @Test
-    void rejectsItemWithMissingEveryRequiredField() throws FeedException {
-        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
-
-        assertEquals(Set.of(RejectionReason.MISSING_TITLE,
-                    RejectionReason.MISSING_COMPANY,
-                    RejectionReason.MISSING_PUBLISHED_DATE,
-                    RejectionReason.MISSING_RF_ID,
-                    RejectionReason.MISSING_URL,
-                    RejectionReason.MISSING_DESCRIPTION),
-                parsedFeed.rejections().get(2).reasons());
-    }
-
-    @Test
-    void reportsPositionOfEachItemRejectedForSeveralReason() throws FeedException {
+    void reportsPositionOfEachItemRejectedForSeveralReasons() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-several.xml");
 
         assertEquals(1, parsedFeed.rejections().get(0).position());
@@ -204,10 +107,44 @@ public class RssFeedParserRejectionsTest {
         assertEquals(3, parsedFeed.rejections().get(2).position());
     }
 
+    static Stream<Arguments> expectedRejectionReasons() {
+        return Stream.of(
+                Arguments.of("tecnoempleo-sample-missing-company.xml", 0, Set.of(MISSING_COMPANY)),
+                Arguments.of("tecnoempleo-sample-missing-title.xml", 0, Set.of(MISSING_TITLE)),
+                Arguments.of("tecnoempleo-sample-missing-title.xml", 1, Set.of(MISSING_TITLE)),
+                Arguments.of("tecnoempleo-sample-missing-published-date.xml", 0, Set.of(MISSING_PUBLISHED_DATE)),
+                Arguments.of("tecnoempleo-sample-missing-published-date.xml", 1, Set.of(MISSING_PUBLISHED_DATE)),
+                Arguments.of("tecnoempleo-sample-missing-rf-id.xml", 0, Set.of(MISSING_RF_ID)),
+                Arguments.of("tecnoempleo-sample-missing-rf-id.xml", 1, Set.of(MISSING_RF_ID)),
+                Arguments.of("tecnoempleo-sample-missing-url.xml", 0, Set.of(MISSING_URL, MISSING_RF_ID)),
+                Arguments.of("tecnoempleo-sample-missing-url.xml", 1, Set.of(MISSING_URL, MISSING_RF_ID)),
+                Arguments.of("tecnoempleo-sample-missing-description.xml", 0,
+                        Set.of(MISSING_DESCRIPTION, MISSING_COMPANY)),
+                Arguments.of("tecnoempleo-sample-missing-description.xml", 1, Set.of(MISSING_DESCRIPTION)),
+                Arguments.of("tecnoempleo-sample-missing-several.xml", 0,
+                        Set.of(MISSING_TITLE, MISSING_COMPANY, MISSING_PUBLISHED_DATE)),
+                Arguments.of("tecnoempleo-sample-missing-several.xml", 1,
+                        Set.of(MISSING_RF_ID, MISSING_DESCRIPTION)),
+                Arguments.of("tecnoempleo-sample-missing-several.xml", 2,
+                        Set.of(MISSING_TITLE, MISSING_COMPANY, MISSING_PUBLISHED_DATE,
+                                MISSING_RF_ID, MISSING_URL, MISSING_DESCRIPTION))
+        );
+    }
+
+    static Stream<Arguments> expectedRejectionCounts() {
+        return Stream.of(
+                Arguments.of("tecnoempleo-sample-missing-company.xml", 2),
+                Arguments.of("tecnoempleo-sample-missing-title.xml", 2),
+                Arguments.of("tecnoempleo-sample-missing-published-date.xml", 2),
+                Arguments.of("tecnoempleo-sample-missing-rf-id.xml", 2),
+                Arguments.of("tecnoempleo-sample-missing-url.xml", 2),
+                Arguments.of("tecnoempleo-sample-missing-description.xml", 2),
+                Arguments.of("tecnoempleo-sample-missing-several.xml", 3)
+        );
+    }
+
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
         String xml = TestResources.readClasspathResourceAsText(fileName);
         return RssFeedParser.parseRssFeed(xml);
     }
-
-
 }
