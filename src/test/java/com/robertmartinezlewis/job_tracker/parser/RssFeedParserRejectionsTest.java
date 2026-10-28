@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RssFeedParserRejectionsTest {
 
     @Test
-    void rejectsItemWithoutCompany()  throws FeedException {
+    void rejectsItemWithoutCompany() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
 
         assertEquals(2, parsedFeed.rejections().size());
@@ -24,7 +24,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void keepsValidItemWhenAnotherCompanyIsRejected()  throws FeedException {
+    void keepsValidItemWhenAnotherCompanyIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
 
         assertEquals(1, parsedFeed.listings().size());
@@ -32,7 +32,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void reportsPositionOfRejectedItem()  throws FeedException {
+    void reportsPositionOfRejectedItem() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-company.xml");
 
         assertEquals(1, parsedFeed.rejections().get(0).position());
@@ -40,7 +40,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsItemWithoutTitle()  throws FeedException {
+    void rejectsItemWithoutTitle() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
 
         assertEquals(2, parsedFeed.rejections().size());
@@ -48,7 +48,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void keepsValidItemWhenAnotherTitleIsRejected()  throws FeedException {
+    void keepsValidItemWhenAnotherTitleIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
 
         assertEquals(1, parsedFeed.listings().size());
@@ -56,14 +56,14 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsItemWithBlankTitle()  throws FeedException {
+    void rejectsItemWithBlankTitle() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-title.xml");
 
         assertEquals(Set.of(RejectionReason.MISSING_TITLE), parsedFeed.rejections().get(1).reasons());
     }
 
     @Test
-    void rejectsItemWithoutPublishedDate()  throws FeedException {
+    void rejectsItemWithoutPublishedDate() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
 
         assertEquals(2, parsedFeed.rejections().size());
@@ -71,7 +71,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void keepsValidItemWhenAnotherPublishedDateIsRejected()  throws FeedException {
+    void keepsValidItemWhenAnotherPublishedDateIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
 
         assertEquals(1, parsedFeed.listings().size());
@@ -79,14 +79,14 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsIllegiblePublishedDate()  throws FeedException {
+    void rejectsIllegiblePublishedDate() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-published-date.xml");
 
         assertEquals(Set.of(RejectionReason.MISSING_PUBLISHED_DATE), parsedFeed.rejections().get(1).reasons());
     }
 
     @Test
-    void rejectsItemWithoutRfId()  throws FeedException {
+    void rejectsItemWithoutRfId() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
 
         assertEquals(2, parsedFeed.rejections().size());
@@ -94,7 +94,7 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void keepsValidItemWhenAnotherRfIdIsRejected()  throws FeedException {
+    void keepsValidItemWhenAnotherRfIdIsRejected() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
 
         assertEquals(1, parsedFeed.listings().size());
@@ -102,10 +102,36 @@ public class RssFeedParserRejectionsTest {
     }
 
     @Test
-    void rejectsInvalidRfId()  throws FeedException {
+    void rejectsInvalidRfId() throws FeedException {
         ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-rf-id.xml");
 
         assertEquals(Set.of(RejectionReason.MISSING_RF_ID), parsedFeed.rejections().get(1).reasons());
+    }
+
+    @Test
+    void rejectsItemWithoutUrl() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-url.xml");
+
+        assertEquals(2, parsedFeed.rejections().size());
+        assertEquals(Set.of(RejectionReason.MISSING_URL, RejectionReason.MISSING_RF_ID),
+                parsedFeed.rejections().get(0).reasons());
+    }
+
+    @Test
+    void keepsValidItemWhenAnotherUrlIsRejected() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-url.xml");
+
+        assertEquals(1, parsedFeed.listings().size());
+        assertEquals("https://www.tecnoempleo.com/ejemplo-valido/java/rf-00000000000000000501",
+                parsedFeed.listings().get(0).url());
+    }
+
+    @Test
+    void rejectsInvalidUrl() throws FeedException {
+        ParsedFeed parsedFeed = getParsedFeed("tecnoempleo-sample-missing-url.xml");
+
+        assertEquals(Set.of(RejectionReason.MISSING_URL, RejectionReason.MISSING_RF_ID),
+                parsedFeed.rejections().get(1).reasons());
     }
 
     private ParsedFeed getParsedFeed(String fileName) throws FeedException {
