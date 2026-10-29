@@ -43,6 +43,7 @@ class JobListingRepositoryTest {
         jobListing.setPostedDate(LocalDate.of(2026, 10, 3));
         Instant seen = Instant.now();
         jobListing.setFirstSeenDate(seen);
+        jobListing.setProvince("Santa Cruz de Tenerife");
 
         JobListing saved = repository.save(jobListing);
         manager.flush();
@@ -61,6 +62,7 @@ class JobListingRepositoryTest {
         assertThat(found.get().getSalaryMax()).isEqualTo(1200);
         assertThat(found.get().getPostedDate()).isEqualTo(LocalDate.of(2026, 10, 3));
         assertThat(found.get().getFirstSeenDate()).isCloseTo(seen, within(1, ChronoUnit.MILLIS));
+        assertThat(found.get().getProvince()).isEqualTo("Santa Cruz de Tenerife");
     }
 
     @Test
@@ -208,5 +210,30 @@ class JobListingRepositoryTest {
                 "Empresa01",
                 "x"))
                 .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    void listingWithMissingProvinceIsNotRejected() {
+        JobListing jobListing = new JobListing();
+        jobListing.setTitle("jr dev");
+        jobListing.setUrl("https://somewhere/jrdev.com/rf-00000000000000000001");
+        jobListing.setRfId("rf-00000000000000000001");
+        jobListing.setSource(Source.INFOJOBS);
+        jobListing.setCompany("Empresa01");
+        jobListing.setDescription("x".repeat(5500));
+        jobListing.setSalaryMin(1000);
+        jobListing.setSalaryMax(1200);
+        jobListing.setPostedDate(LocalDate.of(2026, 10, 3));
+        Instant seen = Instant.now();
+        jobListing.setFirstSeenDate(seen);
+        jobListing.setProvince(null);
+
+        JobListing saved = repository.save(jobListing);
+        manager.flush();
+        manager.clear();
+        Optional<JobListing> found = repository.findById(saved.getId());
+
+        assertThat(found).isPresent();
+        assertThat(found.get().getProvince()).isNull();
     }
 }

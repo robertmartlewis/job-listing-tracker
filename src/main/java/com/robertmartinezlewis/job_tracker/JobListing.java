@@ -42,6 +42,8 @@ public class JobListing {
     private LocalDate postedDate;
     @Column(nullable = false)
     private Instant firstSeenDate;
+    @Column(nullable = true, length = 40)
+    private String province;
 
     public void setId(Long id) {
         this.id = id;
@@ -150,4 +152,8 @@ public class JobListing {
     public void setFirstSeenDate(Instant firstSeenDate) {
         this.firstSeenDate = firstSeenDate;
     }
+
+    public String getProvince() { return province; }
+
+    public void setProvince(String province) { this.province = province; }
 }
