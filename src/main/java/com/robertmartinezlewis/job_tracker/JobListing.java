@@ -16,6 +16,8 @@ public class JobListing {
     private String title;
     @Column(nullable = false, unique = true, length = 1080)
     private String url;
+    @Column(nullable = false, unique = true, length = 23)
+    private String rfId;
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private Modality modality;
@@ -40,6 +42,8 @@ public class JobListing {
     private LocalDate postedDate;
     @Column(nullable = false)
     private Instant firstSeenDate;
+    @Column(nullable = true, length = 40)
+    private String province;
 
     public void setId(Long id) {
         this.id = id;
@@ -64,6 +68,10 @@ public class JobListing {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String getRfId() { return rfId; }
+
+    public void setRfId(String rfId) { this.rfId = rfId; }
 
     public Modality getModality() {
         return modality;
@@ -144,4 +152,8 @@ public class JobListing {
     public void setFirstSeenDate(Instant firstSeenDate) {
         this.firstSeenDate = firstSeenDate;
     }
+
+    public String getProvince() { return province; }
+
+    public void setProvince(String province) { this.province = province; }
 }
