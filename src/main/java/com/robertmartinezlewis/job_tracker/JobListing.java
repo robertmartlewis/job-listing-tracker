@@ -16,6 +16,8 @@ public class JobListing {
     private String title;
     @Column(nullable = false, unique = true, length = 1080)
     private String url;
+    @Column(nullable = false, unique = true, length = 23)
+    private String rfId;
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private Modality modality;
@@ -64,6 +66,10 @@ public class JobListing {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String getRfId() { return rfId; }
+
+    public void setRfId(String rfId) { this.rfId = rfId; }
 
     public Modality getModality() {
         return modality;
