@@ -1,5 +1,6 @@
 package com.robertmartinezlewis.job_tracker;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -23,6 +24,9 @@ class JobListingRepositoryTest {
 
     @Autowired
     private TestEntityManager manager;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Test
     void savedListingCanBeReadBack() {
@@ -185,6 +189,24 @@ class JobListingRepositoryTest {
         jobListing.setFirstSeenDate(seen);
 
         assertThatThrownBy(() -> repository.save(jobListing))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    void listingWithMissingRfIdIsRejectedByTheDatabase() {
+        String sql = """
+                INSERT INTO job_listing (title, url, source, status, company, description, first_seen_date)
+                VALUES (?, ?, ?, ?, ?, ?, now())
+                """;
+
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                sql,
+                "jr dev",
+                "https://somewhere/jrdev.com/rf-00000000000000000001",
+                "TECNOEMPLEO",
+                "NEW",
+                "Empresa01",
+                "x"))
                 .isInstanceOf(DataIntegrityViolationException.class);
     }
 }
