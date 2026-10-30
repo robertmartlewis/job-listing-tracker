@@ -44,6 +44,10 @@ public class JobListing {
     private Instant firstSeenDate;
     @Column(nullable = true, length = 40)
     private String province;
+    @Column(nullable = true)
+    private Integer experienceMin;
+    @Column(nullable = true)
+    private Integer experienceMax;
 
     public void setId(Long id) {
         this.id = id;
@@ -153,7 +157,27 @@ public class JobListing {
         this.firstSeenDate = firstSeenDate;
     }
 
-    public String getProvince() { return province; }
+    public String getProvince() {
+        return province;
+    }
 
-    public void setProvince(String province) { this.province = province; }
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public Integer getExperienceMin() {
+        return experienceMin;
+    }
+
+    public void setExperienceMin(Integer experienceMin) {
+        this.experienceMin = experienceMin;
+    }
+
+    public Integer getExperienceMax() {
+        return experienceMax;
+    }
+
+    public void setExperienceMax(Integer experienceMax) {
+        this.experienceMax = experienceMax;
+    }
 }
