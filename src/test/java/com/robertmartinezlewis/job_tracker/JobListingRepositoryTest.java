@@ -317,4 +317,30 @@ class JobListingRepositoryTest {
         assertThat(found.get().getExperienceMin()).isNull();
         assertThat(found.get().getExperienceMax()).isEqualTo(3);
     }
+
+    @Test
+    void listingWithLongExperienceText() {
+        String setExperienceText = "x".repeat(300);
+        JobListing jobListing = new JobListing();
+        jobListing.setTitle("jr dev");
+        jobListing.setUrl("https://somewhere/jrdev.com/rf-00000000000000000001");
+        jobListing.setRfId("rf-00000000000000000001");
+        jobListing.setSource(Source.INFOJOBS);
+        jobListing.setCompany("Empresa01");
+        jobListing.setDescription("x".repeat(5500));
+        jobListing.setSalaryMin(1000);
+        jobListing.setSalaryMax(1200);
+        jobListing.setPostedDate(LocalDate.of(2026, 10, 3));
+        Instant seen = Instant.now();
+        jobListing.setFirstSeenDate(seen);
+        jobListing.setExperienceText(setExperienceText);
+
+        JobListing saved = repository.save(jobListing);
+        manager.flush();
+        manager.clear();
+        Optional<JobListing> found = repository.findById(saved.getId());
+
+        assertThat(found).isPresent();
+        assertThat(found.get().getExperienceText()).isEqualTo(setExperienceText);
+    }
 }
