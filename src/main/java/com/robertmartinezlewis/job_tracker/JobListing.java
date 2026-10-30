@@ -48,6 +48,8 @@ public class JobListing {
     private Integer experienceMin;
     @Column(nullable = true)
     private Integer experienceMax;
+    @Column(nullable = true)
+    private String experienceText;
 
     public void setId(Long id) {
         this.id = id;
@@ -179,5 +181,13 @@ public class JobListing {
 
     public void setExperienceMax(Integer experienceMax) {
         this.experienceMax = experienceMax;
+    }
+
+    public String getExperienceText() {
+        return experienceText;
+    }
+
+    public void setExperienceText(String experienceText) {
+        this.experienceText = experienceText;
     }
 }
