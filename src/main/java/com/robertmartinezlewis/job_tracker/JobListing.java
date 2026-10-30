@@ -50,6 +50,8 @@ public class JobListing {
     private Integer experienceMax;
     @Column(nullable = true)
     private String experienceText;
+    @Column(nullable = true)
+    private String technologies;
 
     public void setId(Long id) {
         this.id = id;
@@ -189,5 +191,13 @@ public class JobListing {
 
     public void setExperienceText(String experienceText) {
         this.experienceText = experienceText;
+    }
+
+    public String getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(String technologies) {
+        this.technologies = technologies;
     }
 }
