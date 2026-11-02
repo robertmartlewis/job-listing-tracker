@@ -22,6 +22,7 @@ public class ParsedListingConverter {
         JobListing jobListing = new JobListing();
         jobListing.setFirstSeenDate(clock.instant());
         jobListing.setPostedDate(LocalDate.ofInstant(parsedListing.publishedAt(), MADRID));
+        jobListing.setSource(source);
         return jobListing;
     }
 }

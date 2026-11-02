@@ -30,6 +30,12 @@ class ParsedListingConverterTest {
         assertThat(jobListing.getPostedDate()).isEqualTo(LocalDate.of(2026, 9, 26));
     }
 
+    @Test
+    void setsSourceFromArgument() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.INFOJOBS);
+        assertThat(jobListing.getSource()).isEqualTo(Source.INFOJOBS);
+    }
+
     private static ParsedListing aParsedListing() {
         return new ParsedListing(
                 "rf-0123456789abcdef0123",
