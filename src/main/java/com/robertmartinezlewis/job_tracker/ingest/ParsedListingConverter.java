@@ -34,6 +34,9 @@ public class ParsedListingConverter {
         jobListing.setSalaryText(parsedListing.salaryText());
         jobListing.setSalaryMin(parsedListing.salaryMin());
         jobListing.setSalaryMax(parsedListing.salaryMax());
+        jobListing.setExperienceText(parsedListing.experienceText());
+        jobListing.setExperienceMin(parsedListing.experienceMin());
+        jobListing.setExperienceMax(parsedListing.experienceMax());
         return jobListing;
     }
 }

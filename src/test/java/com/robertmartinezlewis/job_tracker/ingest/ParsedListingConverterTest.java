@@ -122,6 +122,42 @@ class ParsedListingConverterTest {
         assertThat(jobListing.getSalaryMax()).isNull();
     }
 
+    @Test
+    void setsExperienceText() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getExperienceText()).isEqualTo("3-5 años");
+    }
+
+    @Test
+    void setsExperienceMin() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getExperienceMin()).isEqualTo(Integer.valueOf(3));
+    }
+
+    @Test
+    void setsExperienceMax() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getExperienceMax()).isEqualTo(Integer.valueOf(5));
+    }
+
+    @Test
+    void setsExperienceTextWhenThereIsNoMaximum() {
+        JobListing jobListing = converter.toJobListing(aParsedListingWithProvince(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getExperienceText()).isEqualTo("Más de 5 años");
+    }
+
+    @Test
+    void setsExperienceMinWhenThereIsNoMaximum() {
+        JobListing jobListing = converter.toJobListing(aParsedListingWithProvince(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getExperienceMin()).isEqualTo(Integer.valueOf(5));
+    }
+
+    @Test
+    void setsExperienceMaxWhenThereIsNoMaximum() {
+        JobListing jobListing = converter.toJobListing(aParsedListingWithProvince(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getExperienceMax()).isNull();
+    }
+
     private static ParsedListing aParsedListing() {
         return new ParsedListing(
                 "rf-0123456789abcdef0123",
@@ -156,9 +192,9 @@ class ParsedListingConverterTest {
                 "Sin especificar",
                 null,
                 null,
-                "3-5 años",
-                3,
-                5
+                "Más de 5 años",
+                5,
+                null
         );
     }
 }
