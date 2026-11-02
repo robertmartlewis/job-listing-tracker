@@ -92,6 +92,36 @@ class ParsedListingConverterTest {
         assertThat(jobListing.getTechnologies()).isEqualTo("Java, Spring Boot");
     }
 
+    @Test
+    void setsSalaryText() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getSalaryText()).isEqualTo("30000 € - 45000 € Bruto/año");
+    }
+
+    @Test
+    void setsSalaryMin() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getSalaryMin()).isEqualTo(Integer.valueOf(30000));
+    }
+
+    @Test
+    void setsSalaryMax() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getSalaryMax()).isEqualTo(Integer.valueOf(45000));
+    }
+
+    @Test
+    void setsSalaryMinWhenNull() {
+        JobListing jobListing = converter.toJobListing(aParsedListingWithProvince(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getSalaryMin()).isNull();
+    }
+
+    @Test
+    void setsSalaryMaxWhenNull() {
+        JobListing jobListing = converter.toJobListing(aParsedListingWithProvince(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getSalaryMax()).isNull();
+    }
+
     private static ParsedListing aParsedListing() {
         return new ParsedListing(
                 "rf-0123456789abcdef0123",
@@ -123,9 +153,9 @@ class ParsedListingConverterTest {
                 "Asturias",
                 null,
                 "Java, Spring Boot",
-                "30000 € - 45000 € Bruto/año",
-                30000,
-                45000,
+                "Sin especificar",
+                null,
+                null,
                 "3-5 años",
                 3,
                 5

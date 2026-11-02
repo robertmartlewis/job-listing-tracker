@@ -31,6 +31,9 @@ public class ParsedListingConverter {
         jobListing.setProvince(parsedListing.province());
         jobListing.setModality(parsedListing.modality());
         jobListing.setTechnologies(parsedListing.technologies());
+        jobListing.setSalaryText(parsedListing.salaryText());
+        jobListing.setSalaryMin(parsedListing.salaryMin());
+        jobListing.setSalaryMax(parsedListing.salaryMax());
         return jobListing;
     }
 }
