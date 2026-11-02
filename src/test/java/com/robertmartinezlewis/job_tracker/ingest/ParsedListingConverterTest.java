@@ -3,6 +3,7 @@ package com.robertmartinezlewis.job_tracker.ingest;
 import com.robertmartinezlewis.job_tracker.JobListing;
 import com.robertmartinezlewis.job_tracker.Modality;
 import com.robertmartinezlewis.job_tracker.Source;
+import com.robertmartinezlewis.job_tracker.Status;
 import com.robertmartinezlewis.job_tracker.parser.ParsedListing;
 import org.junit.jupiter.api.Test;
 
@@ -34,6 +35,12 @@ class ParsedListingConverterTest {
     void setsSourceFromArgument() {
         JobListing jobListing = converter.toJobListing(aParsedListing(), Source.INFOJOBS);
         assertThat(jobListing.getSource()).isEqualTo(Source.INFOJOBS);
+    }
+
+    @Test
+    void setStatusNew() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getStatus()).isEqualTo(Status.NEW);
     }
 
     private static ParsedListing aParsedListing() {
