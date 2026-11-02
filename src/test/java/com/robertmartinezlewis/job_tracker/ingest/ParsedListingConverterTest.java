@@ -74,6 +74,18 @@ class ParsedListingConverterTest {
         assertThat(jobListing.getDescription()).isEqualTo("Descripción de ejemplo");
     }
 
+    @Test
+    void setsModality() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getModality()).isEqualTo(Modality.OFFICE);
+    }
+
+    @Test
+    void setsProvince() {
+        JobListing jobListing = converter.toJobListing(aParsedListingWithProvince(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getProvince()).isEqualTo("Asturias");
+    }
+
     private static ParsedListing aParsedListing() {
         return new ParsedListing(
                 "rf-0123456789abcdef0123",
@@ -83,7 +95,27 @@ class ParsedListingConverterTest {
                 "Descripción de ejemplo",
                 Instant.parse("2026-09-25T22:30:00Z"),
                 null,
-                Modality.REMOTE,
+                Modality.OFFICE,
+                "Java, Spring Boot",
+                "30000 € - 45000 € Bruto/año",
+                30000,
+                45000,
+                "3-5 años",
+                3,
+                5
+        );
+    }
+
+    private static ParsedListing aParsedListingWithProvince() {
+        return new ParsedListing(
+                "rf-0123456789abcdef0123",
+                "https://www.tecnoempleo.com/oferta-java/rf-0123456789abcdef0123",
+                "Desarrollador Java Junior",
+                "Empresa Ejemplo",
+                "Descripción de ejemplo",
+                Instant.parse("2026-09-25T22:30:00Z"),
+                "Asturias",
+                null,
                 "Java, Spring Boot",
                 "30000 € - 45000 € Bruto/año",
                 30000,
