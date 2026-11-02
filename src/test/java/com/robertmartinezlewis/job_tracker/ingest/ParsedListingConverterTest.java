@@ -2,6 +2,7 @@ package com.robertmartinezlewis.job_tracker.ingest;
 
 import com.robertmartinezlewis.job_tracker.JobListing;
 import com.robertmartinezlewis.job_tracker.Modality;
+import com.robertmartinezlewis.job_tracker.Source;
 import com.robertmartinezlewis.job_tracker.parser.ParsedListing;
 import org.junit.jupiter.api.Test;
 
@@ -18,14 +19,14 @@ class ParsedListingConverterTest {
 
     @Test
     void setsFirstSeenDateFromClock() {
-        JobListing jobListing = converter.toJobListing(aParsedListing());
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
 
         assertThat(jobListing.getFirstSeenDate()).isEqualTo(NOW);
     }
     
     @Test
     void setsPostedDateInMadridTime() {
-        JobListing jobListing = converter.toJobListing(aParsedListing());
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
         assertThat(jobListing.getPostedDate()).isEqualTo(LocalDate.of(2026, 9, 26));
     }
 

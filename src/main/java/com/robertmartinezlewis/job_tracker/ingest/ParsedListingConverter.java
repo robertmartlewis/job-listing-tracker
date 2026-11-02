@@ -1,6 +1,7 @@
 package com.robertmartinezlewis.job_tracker.ingest;
 
 import com.robertmartinezlewis.job_tracker.JobListing;
+import com.robertmartinezlewis.job_tracker.Source;
 import com.robertmartinezlewis.job_tracker.parser.ParsedListing;
 
 import java.time.Clock;
@@ -17,7 +18,7 @@ public class ParsedListingConverter {
         this.clock = clock;
     }
 
-    public JobListing toJobListing(ParsedListing parsedListing) {
+    public JobListing toJobListing(ParsedListing parsedListing, Source source) {
         JobListing jobListing = new JobListing();
         jobListing.setFirstSeenDate(clock.instant());
         jobListing.setPostedDate(LocalDate.ofInstant(parsedListing.publishedAt(), MADRID));
