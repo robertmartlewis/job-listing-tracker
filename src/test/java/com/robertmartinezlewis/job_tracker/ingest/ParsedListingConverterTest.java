@@ -38,9 +38,22 @@ class ParsedListingConverterTest {
     }
 
     @Test
-    void setStatusNew() {
+    void setsStatusNew() {
         JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
         assertThat(jobListing.getStatus()).isEqualTo(Status.NEW);
+    }
+
+    @Test
+    void setsRfId() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getRfId()).isEqualTo("rf-0123456789abcdef0123");
+    }
+
+    @Test
+    void setsUrl() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getUrl()).isEqualTo(
+                "https://www.tecnoempleo.com/oferta-java/rf-0123456789abcdef0123");
     }
 
     private static ParsedListing aParsedListing() {
