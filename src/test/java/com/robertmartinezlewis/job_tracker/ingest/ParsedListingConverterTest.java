@@ -56,6 +56,24 @@ class ParsedListingConverterTest {
                 "https://www.tecnoempleo.com/oferta-java/rf-0123456789abcdef0123");
     }
 
+    @Test
+    void setsTitle() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getTitle()).isEqualTo("Desarrollador Java Junior");
+    }
+
+    @Test
+    void setsCompany() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getCompany()).isEqualTo("Empresa Ejemplo");
+    }
+
+    @Test
+    void setsDescription() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getDescription()).isEqualTo("Descripción de ejemplo");
+    }
+
     private static ParsedListing aParsedListing() {
         return new ParsedListing(
                 "rf-0123456789abcdef0123",

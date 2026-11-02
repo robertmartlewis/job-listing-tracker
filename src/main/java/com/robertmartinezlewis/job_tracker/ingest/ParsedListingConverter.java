@@ -25,6 +25,9 @@ public class ParsedListingConverter {
         jobListing.setSource(source);
         jobListing.setRfId(parsedListing.rfId());
         jobListing.setUrl(parsedListing.url());
+        jobListing.setTitle(parsedListing.title());
+        jobListing.setCompany(parsedListing.company());
+        jobListing.setDescription(parsedListing.description());
         return jobListing;
     }
 }
