@@ -30,6 +30,7 @@ public class ParsedListingConverter {
         jobListing.setDescription(parsedListing.description());
         jobListing.setProvince(parsedListing.province());
         jobListing.setModality(parsedListing.modality());
+        jobListing.setTechnologies(parsedListing.technologies());
         return jobListing;
     }
 }

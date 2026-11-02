@@ -86,6 +86,12 @@ class ParsedListingConverterTest {
         assertThat(jobListing.getProvince()).isEqualTo("Asturias");
     }
 
+    @Test
+    void setsTechnologies() {
+        JobListing jobListing = converter.toJobListing(aParsedListing(), Source.TECNOEMPLEO);
+        assertThat(jobListing.getTechnologies()).isEqualTo("Java, Spring Boot");
+    }
+
     private static ParsedListing aParsedListing() {
         return new ParsedListing(
                 "rf-0123456789abcdef0123",
