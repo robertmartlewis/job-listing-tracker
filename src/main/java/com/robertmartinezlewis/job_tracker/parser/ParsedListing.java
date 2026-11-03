@@ -1,6 +1,7 @@
 package com.robertmartinezlewis.job_tracker.parser;
 
 import com.robertmartinezlewis.job_tracker.Modality;
+import com.robertmartinezlewis.job_tracker.SpanishProvinces;
 
 import java.time.Instant;
 
@@ -21,4 +22,9 @@ public record ParsedListing(
         Integer experienceMin,
         Integer experienceMax
 ) {
+    public ParsedListing {
+        if (province != null && !SpanishProvinces.PROVINCES.contains(province)) {
+            throw new IllegalArgumentException("Invalid province: \"" + province + "\"");
+        }
+    }
 }
