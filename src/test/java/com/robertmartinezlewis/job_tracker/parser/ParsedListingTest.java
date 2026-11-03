@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 public class ParsedListingTest {
 
@@ -19,6 +18,11 @@ public class ParsedListingTest {
     @Test
     void doesNotRejectNullProvince() {
         assertThatCode(() -> aParsedListingWithProvince(null)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void keepsProvinceAsGiven() {
+        assertThat(aParsedListingWithProvince("Asturias").province()).isEqualTo("Asturias");
     }
 
     private static ParsedListing aParsedListingWithProvince(String province) {
