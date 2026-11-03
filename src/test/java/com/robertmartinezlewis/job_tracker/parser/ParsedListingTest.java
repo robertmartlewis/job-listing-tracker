@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ParsedListingTest {
@@ -13,6 +14,11 @@ public class ParsedListingTest {
         assertThatThrownBy(() -> aParsedListingWithProvince("Narnia"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Invalid province: \"Narnia\"");
+    }
+
+    @Test
+    void doesNotRejectNullProvince() {
+        assertThatCode(() -> aParsedListingWithProvince(null)).doesNotThrowAnyException();
     }
 
     private static ParsedListing aParsedListingWithProvince(String province) {
